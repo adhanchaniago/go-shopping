@@ -4,7 +4,7 @@
 Author      :	WREP
 Version     :	1.0
 Created     :	5 Agustus 2018
-Template    :	Revolusi Iman Theme
+Template    :	Go-Shopping
 -------------------------------------------------------------------*/
 *{
     padding: 0;
@@ -15,6 +15,9 @@ a{
 }
 a:hover{
     text-decoration: none;
+}
+body{
+    background: #f6f6f6;
 }
 
 /*---------- HEADER ----------*/
@@ -28,128 +31,7 @@ a:hover{
     color: #fff;
 }
 
-/*---------- ABOUT ----------*/
-.section-about .jumbotron{
-    background: #00B4DB;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
-    color: #fff;
+/*---------- BANNER ----------*/
+.section-banner{
     padding: 25px 0;
-}
-
-.section .container{
-    padding: 25px 0;
-}
-.section .card{
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-}
-.section .row{
-    margin-right: 0;
-    margin-left: 0;
-}
-
-/*---------- CERAMAH ----------*/
-.section-ceramah h3{
-    font-size: 1.7em;
-    padding-bottom: 15px;
-}
-
-/*---------- MUROTTAL ----------*/
-.section-murottal img{
-    height: 100%;
-}
-.section-murottal h3{
-    font-size: 1.7em;
-    padding-bottom: 15px;
-}
-.section-murottal h4{
-    font-size: 1.3em;
-    padding-bottom: 15px;
-    color: #000;
-}
-.section-murottal h4:hover{
-    color: #0083B0;
-}
-.section-murottal-post{
-    padding: 75px 0;
-}
-.section-murottal-post .murottal-sidebar a{
-    color: #000;
-}
-.section-murottal-post .murottal-sidebar a:hover{
-    color: #0083B0;
-}
-.section-murottal-post .murottal-sidebar .col-12{
-    padding-bottom: 15px;
-}
-
-/*---------- ANGGOTA ----------*/
-.section-anggota h4{
-    text-align: center;
-    padding: 10px 0 20px;
-}
-.section-anggota .load{
-    text-align: center;
-}
-
-/*---------- FOOTER ----------*/
-.footer{
-    text-align: center;
-    background: #3498db;
-    padding: 10px 0;
-    color: #fff;
-}
-
-@media screen and (min-width: 1024px) and (max-width: 1400px){
-    .section .mobile{
-        display: none;
-    }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1020px) {
-    .section .mobile{
-        display: none;
-    }
-    .section-murottal-post{
-        padding: 25px 0;
-    }
-    .section-murottal-post a{
-        margin: 5px 0;
-    }
-}
-
-@media screen and (min-width: 520px) and (max-width: 760px) {
-    .section .selengkapnya{
-        display: none;
-    }
-    .section .mobile{
-        text-align: center; 
-    }
-    .section-murottal-post{
-        padding: 25px 0;
-    }
-    .section-murottal-post a{
-        margin: 5px 0;
-    }
-}
-
-@media screen and (min-width: 320px) and (max-width: 500px) {
-    .section-about .jumbotron{
-        padding: 0 15px;
-    }
-    .section .selengkapnya{
-        display: none;
-    }
-    .section .mobile{
-        text-align: center; 
-    }
-    .section-murottal-post{
-        padding: 25px 0;
-    }
-    .section-murottal-post a{
-        margin: 5px 0;
-    }
-    .section-murottal-post .murottal-sidebar{
-        padding: 25px 0 10px;
-    }
 }
