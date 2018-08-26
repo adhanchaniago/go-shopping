@@ -38,7 +38,7 @@
             $data_produk = $produk->result_array();
             foreach($data_produk as $row) {
             ?>
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <a href="<?php echo base_url('post/').$row['slug_nama_produk']; ?>">
                         <div class="card">
                             <img class="card-img-top img-fluid" src="<?php echo base_url('asset/img/produk/').$row['nama_file']; ?>" alt="<?php echo $row['slug_nama_produk']; ?>">
@@ -46,7 +46,9 @@
                                 <h5><?php echo $row['nama_produk']; ?></h5>
                                 <small><?php echo $row['harga']; ?></small>
                             </div>
-                            <a href="<?php echo base_url('post/').$row['slug_nama_produk']; ?>" class="btn btn-primary btn-sm">Lihat Produk</a>
+                            <div class="card-footer">
+                                <a href="<?php echo base_url('post/').$row['slug_nama_produk']; ?>" class="btn btn-primary btn-sm">Lihat Produk</a>
+                            </div>
                         </div>
                     </a>
                 </div>
@@ -77,30 +79,28 @@
 
 <section class="section section-info">
     <div class="container">
-        <div class="card">
-            <div class="row">
-                <div class="col-lg-4">
+        <div class="row">
+            <div class="col-lg-4">
                 <h4>Go Shopping</h4>
-                    <ul class="nav flex-column">
-                        <li class="nav-items"><a href="">Tentang Kami</a></li>
-                        <li><a href="">Tentang Kami</a></li>
-                        <li><a href="">Tentang Kami</a></li>
-                    </ul>
-                </div>
+                <ul>
+                    <li><a href="">Tentang Kami</a></li>
+                    <li><a href="">Tentang Kami</a></li>
+                    <li><a href="">Tentang Kami</a></li>
+                </ul>
+            </div>
 
-                <div class="col-lg-4">
-                    <h4>Social Media</h4>
-                    <ul>
-                        <li><a href="">Tentang Kami</a></li>
-                        <li><a href="">Tentang Kami</a></li>
-                        <li><a href="">Tentang Kami</a></li>
-                    </ul>
-                </div>
+            <div class="col-lg-4">
+                <h4>Social Media</h4>
+                <ul>
+                    <li><a href="">Tentang Kami</a></li>
+                    <li><a href="">Tentang Kami</a></li>
+                    <li><a href="">Tentang Kami</a></li>
+                </ul>
+            </div>
 
-                <div class="col-lg-4">
-                    <h4>Newsletter</h4>
-                    <input type="email" name="email" class="form-control">
-                </div>
+            <div class="col-lg-4">
+                <h4>Newsletter</h4>
+                <input type="email" name="email" class="form-control">
             </div>
         </div>
     </div>

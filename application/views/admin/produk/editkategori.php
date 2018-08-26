@@ -39,69 +39,64 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <a href="<?php echo base_url('admin/produk'); ?>" class="btn btn-primary">Kembali</a>
+        <a href="<?php echo base_url('admin/produk/kategori'); ?>" class="btn btn-primary">Kembali</a>
       </h1>
       <ol class="breadcrumb" style="padding: 0;">
-        <!-- <li><a href="" class="btn btn-primary">Kembali</a></li> -->
+        <li></li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
+      <!-- Info boxes -->
+      <div class="row">
+        <div class="col-md-12 col-sm-6 col-xs-12">
+          
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
-        <div class="col-md-4">
-            <div class="box box-danger box-solid">
-                <div class="box-header">
-                    <h3 class="box-title">Gambar Produk</h3>
-                </div>
-                <div class="box-body">
-                    <?php foreach($data as $row) { ?>
-                    <img src="<?php echo base_url('asset/img/produk/').$row['nama_file']; ?>" alt="" class="img-responsive">
-                </div>
+        <div class="col-md-6">
+          <div class="box box-danger box-solid">
+            <div class="box-header">
+              <h3 class="box-title">Edit Kategori</h3>
             </div>
+
+            <div class="box-body">
+              <?php
+              if($this->session->flashdata('success'))
+              {
+                echo '<div class="alert alert-success">' . $this->session->flashdata('success') . '</div>';
+              }
+
+              if($this->session->flashdata('error'))
+              {
+                echo '<div class="alert alert-danger">' . $this->session->flashdata('error') . '</div>';
+              }
+              ?>
+              <?php echo form_open('admin/prosesupdatekategori'); ?>
+                <div class="box-body">
+                  <div class="form-group">
+                    <label>Nama Kategori</label>
+                    <input type="text" name="id" value="<?php echo $id; ?>" hidden>
+                    <?php $kat = array('type' => 'text', 'class' => 'form-control', 'name' => 'kategori', 'value' => set_value('kategori', $kategori)); echo form_input($kat); ?>
+                    <?php echo form_error('kategori', validation_errors()) ?>
+                  </div>
+                </div>
+
+                <div class="box-footer">
+                  <?php echo form_submit('submit', 'Submit', array('class' => 'btn btn-primary')); ?>
+                  <?php echo form_reset('reset', 'Reset', array('class' => 'btn btn-danger')); ?>
+                </div>
+              <?php echo form_close(); ?>
+            </div>
+          </div>
         </div>
 
-        <div class="col-md-8">
-            <div class="box box-danger box-solid">
-            <div class="box-header">
-              <h3 class="box-title">Detail Produk</h3>
-
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table class="table table-bordered table-striped">
-                <tr>
-                  <th>#</th>
-                  <th>Informasi</th>
-                </tr>
-                <tr>
-                  <td>Nama Produk</td>
-                  <td><?php echo $row['nama_produk']; ?></td>
-                </tr>
-                <tr>
-                  <td>Harga Produk</td>
-                  <td><?php echo $row['harga']; ?></td>
-                </tr>
-                <tr>
-                  <td>Kategori</td>
-                  <td><?php echo $row['kategori']; ?></td>
-                </tr>
-                <tr>
-                  <td>Stok Produk</td>
-                  <td><?php echo $row['stok']; ?></td>
-                </tr>
-                <tr>
-                  <td>Deskripsi Produk</td>
-                  <td><?php echo $row['deskripsi']; ?></td>
-                </tr>
-             <?php } ?>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-        <!-- /.col -->
       </div>
       <!-- /.row -->
     </section>

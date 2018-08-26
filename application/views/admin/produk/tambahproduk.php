@@ -38,8 +38,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
-        <small>Version 2.0</small>
+        <a href="<?php echo base_url('admin/produk'); ?>" class="btn btn-primary">Kembali</a>
       </h1>
       <ol class="breadcrumb" style="padding: 0;">
         <li></li>

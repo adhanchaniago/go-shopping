@@ -39,68 +39,115 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <a href="<?php echo base_url('admin/produk'); ?>" class="btn btn-primary">Kembali</a>
       </h1>
       <ol class="breadcrumb" style="padding: 0;">
-        <!-- <li><a href="" class="btn btn-primary">Kembali</a></li> -->
+        <li></li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
+      <!-- Info boxes -->
+      <div class="row">
+        <div class="col-md-12 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Kategori</span>
+              <span class="info-box-number"><?php $produk = $this->db->get('kategori'); echo $produk->num_rows(); ?> <small> </small></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
-        <div class="col-md-4">
-            <div class="box box-danger box-solid">
-                <div class="box-header">
-                    <h3 class="box-title">Gambar Produk</h3>
-                </div>
-                <div class="box-body">
-                    <?php foreach($data as $row) { ?>
-                    <img src="<?php echo base_url('asset/img/produk/').$row['nama_file']; ?>" alt="" class="img-responsive">
-                </div>
+        <div class="col-md-6">
+          <div class="box box-danger box-solid">
+            <div class="box-header">
+              <h3 class="box-title">Tambah Kategori</h3>
             </div>
+
+            <div class="box-body">
+              <?php
+              if($this->session->flashdata('success'))
+              {
+                echo '<div class="alert alert-success">' . $this->session->flashdata('success') . '</div>';
+              }
+
+              if($this->session->flashdata('error'))
+              {
+                echo '<div class="alert alert-danger">' . $this->session->flashdata('error') . '</div>';
+              }
+              ?>
+              <?php echo form_open('admin/prosestambahkategori'); ?>
+                <div class="box-body">
+                  <div class="form-group">
+                    <label>Nama Kategori</label>
+                    <?php $kat = array('type' => 'text', 'class' => 'form-control', 'name' => 'kategori', 'placeholder' => 'Masukkan Kategori', 'value' => set_value('kategori')); echo form_input($kat); ?>
+                  </div>
+                </div>
+
+                <div class="box-footer">
+                  <?php echo form_submit('submit', 'Submit', array('class' => 'btn btn-primary')); ?>
+                  <?php echo form_reset('reset', 'Reset', array('class' => 'btn btn-danger')); ?>
+                </div>
+              <?php echo form_close(); ?>
+            </div>
+          </div>
         </div>
 
-        <div class="col-md-8">
-            <div class="box box-danger box-solid">
+        <div class="col-md-6">
+        <div class="box box-danger box-solid">
             <div class="box-header">
-              <h3 class="box-title">Detail Produk</h3>
-
+                <h3 class="box-title">Daftar Produk</h3> 
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
-              <table class="table table-bordered table-striped">
-                <tr>
-                  <th>#</th>
-                  <th>Informasi</th>
-                </tr>
-                <tr>
-                  <td>Nama Produk</td>
-                  <td><?php echo $row['nama_produk']; ?></td>
-                </tr>
-                <tr>
-                  <td>Harga Produk</td>
-                  <td><?php echo $row['harga']; ?></td>
-                </tr>
-                <tr>
-                  <td>Kategori</td>
-                  <td><?php echo $row['kategori']; ?></td>
-                </tr>
-                <tr>
-                  <td>Stok Produk</td>
-                  <td><?php echo $row['stok']; ?></td>
-                </tr>
-                <tr>
-                  <td>Deskripsi Produk</td>
-                  <td><?php echo $row['deskripsi']; ?></td>
-                </tr>
-             <?php } ?>
-              </table>
+            <div class="box-body table-responsive">
+              <?php
+                if($this->session->flashdata('sukses-hapus'))
+                {
+                  echo '<p class="alert alert-success">' . $this->session->flashdata('sukses-hapus') . '</p>';
+                }
+              ?>
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                          <th width="2">#</th>
+                          <th>Kategori</th>
+                          <th width="75"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php $no = 1; foreach($data as $row) { ?>
+                        <tr>
+                          <td> <?php echo $no++; ?> </td>
+                          <td> <?php echo $row['kategori']; ?> </td>
+                          <td> 
+                            <a href="<?php echo base_url('admin/produk/editkategori/').$row['id']; ?>" class="label label-success"><i class="fa fa-fw fa-edit"></i></a>
+                            <a href="<?php echo base_url('admin/hapuskategori/').$row['id']; ?>" class="label label-danger"><i class="fa fa-fw fa-close"></i></a>
+                          </td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                          <th width="2">#</th>
+                          <th>Kategori</th>
+                          <th width="75"></th>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
             <!-- /.box-body -->
           </div>
+        </div>
         <!-- /.col -->
       </div>
       <!-- /.row -->

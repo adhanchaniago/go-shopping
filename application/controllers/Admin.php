@@ -20,7 +20,7 @@ class Admin extends CI_Controller {
 	{
 		$data = $this->Admin_model->get('produk');
 		$data = array('data' => $data);
-		$this->load->view('admin/produk/index', $data);
+		$this->load->view('admin/produk/data', $data);
 	}
 
 	public function lihat($slug)
@@ -136,7 +136,7 @@ class Admin extends CI_Controller {
 			$where = array('id' => $this->input->post('id'));
 			$insert = $this->Admin_model->Update('produk', $data, $where);
 			
-			$this->session->set_flashdata('success', 'Edt Produk "'.$this->input->post('nama_produk').'" Berhasil');
+			$this->session->set_flashdata('success', 'Mengubah Produk <b>'.$this->input->post('nama_produk').'</b> Berhasil');
 			redirect(base_url('admin/produk/'));
 		}
 	}
@@ -147,6 +147,83 @@ class Admin extends CI_Controller {
 		$this->Admin_model->Delete('produk', $slug);
 		$this->session->set_flashdata('success', 'Berhasil Menghapus Produk');
 		redirect(base_url('admin/produk'));
+	}
+
+	public function kategori()
+	{
+		$data = $this->Admin_model->get('kategori');
+		$data = array('data' => $data);
+		$this->load->view('admin/produk/kategori', $data);
+	}
+
+	public function prosestambahkategori()
+	{
+		$this->form_validation->set_rules('kategori', 'Kategori', 'trim|required|xss_clean|is_unique[kategori.kategori]');
+		$this->form_validation->set_message('required', 'Mohon Maaf! Kolom <b>%s</b> Tidak Boleh Kosong');
+		$this->form_validation->set_message('is_unique', 'Mohon Maaf! Nama <b>'. $this->input->post('kategori') .'</b> Sudah Tersedia');
+
+		if($this->form_validation->run() == FALSE)
+		{
+			$this->session->set_flashdata('error', validation_errors());
+			redirect(base_url('admin/produk/kategori'));
+		}
+		else
+		{
+			$data = array(
+				'kategori' => $this->input->post('kategori'),
+			);
+
+			$data = $this->Admin_model->Insert('kategori', $data);
+			$this->session->set_flashdata('success', 'Berhasil Menambahkan Kategori <b>' . $this->input->post('kategori') . '</b>' );
+			redirect(base_url('admin/produk/kategori'));
+		}
+	}
+
+	public function editkategori($id)
+	{
+		$where = array('id' => $id);
+		$data = $this->Admin_model->GetWhere('kategori', $where);
+		$data = array(
+			'id' => $data[0]['id'],
+			'kategori' => $data[0]['kategori'],
+		);
+		$this->load->view('admin/produk/editkategori', $data);
+	}
+
+	public function prosesupdatekategori()
+	{
+		$this->form_validation->set_rules('kategori', 'Kategori', 'trim|required|xss_clean|is_unique[kategori.kategori]');
+		$this->form_validation->set_message('required', 'Mohon Maaf! Kolom <b>%s</b> Tidak Boleh Kosong');
+		$this->form_validation->set_message('is_unique', 'Mohon Maaf! Nama <b>' . $this->input->post('kategori') . '</b> Sudah Tersedia');
+
+		if($this->form_validation->run() == FALSE)
+		{
+			$this->load->view('admin/produk/editkategori');
+		}
+		else
+		{
+			$data = array(
+				'kategori' => $this->input->post('kategori'),
+			);
+			$where = array('id' => $this->input->post('id'));
+			$update = $this->Admin_model->Update('kategori', $data, $where);
+			$this->session->set_flashdata('success', 'Mengubah Kategori <b>'.$this->input->post('kategori').'</b> Berhasil');
+			redirect(base_url('admin/produk/kategori'));
+		}
+ 
+	}
+
+	public function hapuskategori($id)
+	{
+		$id = array('id' => $id);
+		$this->Admin_model->Delete('kategori', $id);
+		$this->session->set_flashdata('sukses-hapus', 'Berhasil Menghapus Kategori');
+		redirect(base_url('admin/produk/kategori'));
+	}
+
+	public function penjualan()
+	{
+		$this->load->view('admin/laporan/penjualan');
 	}
 
 	public function date()

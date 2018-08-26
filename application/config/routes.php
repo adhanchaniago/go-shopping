@@ -10,6 +10,11 @@ $route['admin/produk/tambah'] = 'admin/tambah';
 $route['admin/produk/lihat/(:any)'] = 'admin/lihat/$1';
 $route['admin/produk/edit/(:any)'] = 'admin/edit/$1';
 $route['admin/produk/hapus/(:any)'] = 'admin/hapus/$1';
+$route['admin/produk/kategori'] = 'admin/kategori';
+$route['admin/produk/editkategori/(:any)'] = 'admin/editkategori/$1';
+
+// HOME
+$route['post/(:any)'] = 'pembeli/post/$1';
 
 $route['masuk'] = 'auth/masuk';
 $route['daftar'] = 'auth/daftar';

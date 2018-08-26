@@ -18,7 +18,7 @@
       </a>
     </li>
 
-    <li class="treeview <?php if ( $this->uri->uri_string() == 'admin/produk' || $this->uri->uri_string() == 'admin/produk/tambah' ){ echo 'active'; } ?>">
+    <li class="treeview <?php if ( $this->uri->uri_string() == 'admin/produk' ) { echo 'active'; } if ( $this->uri->uri_string() == 'admin/produk/tambah' ){ echo 'active'; }  if ( $this->uri->uri_string() == 'admin/produk/kategori' ){ echo 'active'; } ?>">
       <a href="#">
         <i class="fa fa-dashboard"></i> <span>Produk</span>
         <span class="pull-right-container">
@@ -27,7 +27,19 @@
       </a>
       <ul class="treeview-menu">
         <li class="<?php if ( $this->uri->uri_string() == 'admin/produk' ){ echo 'active'; } ?>"><a href="<?php echo base_url('admin/produk'); ?>"><i class="fa fa-circle-o"></i> Data</a></li>
-        <li class="<?php if ( $this->uri->uri_string() == 'admin/produk/tambah' ){ echo 'active'; } ?>"><a href="<?php echo base_url('admin/produk/tambah'); ?>"><i class="fa fa-circle-o"></i> Tambah</a></li>
+        <li class="<?php if ( $this->uri->uri_string() == 'admin/produk/kategori' ){ echo 'active'; } ?>"><a href="<?php echo base_url('admin/produk/kategori'); ?>"><i class="fa fa-circle-o"></i> Kategori</a></li>
+      </ul>
+    </li>
+
+    <li class="treeview <?php if ( $this->uri->uri_string() == 'admin/penjualan' ) { echo 'active'; } ?>">
+      <a href="#">
+        <i class="fa fa-dashboard"></i> <span>Laporan</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu">
+        <li class="<?php if ( $this->uri->uri_string() == 'admin/penjualan' ){ echo 'active'; } ?>"><a href="<?php echo base_url('admin/penjualan'); ?>"><i class="fa fa-circle-o"></i> Penjualan</a></li>
       </ul>
     </li>
     
