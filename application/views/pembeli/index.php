@@ -20,7 +20,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <img src="https://www.padang.me/asset/foto_slide/hijab1.jpg" alt="Banner" class="img-fluid">
+                <img src="<?php echo base_url('asset/img/banner.jpg') ?>" alt="Banner" class="img-fluid">
             </div>
         </div>
     </div>
@@ -33,18 +33,18 @@
             <?php 
             $this->db->from('produk');
             $this->db->order_by('id', 'DESC');
-            $this->db->limit(6);
+            $this->db->limit(8);
             $produk = $this->db->get();
             $data_produk = $produk->result_array();
             foreach($data_produk as $row) {
             ?>
-                <div class="col-lg-3">
+                <div class="col-lg-3 mb-3 d-flex">
                     <a href="<?php echo base_url('post/').$row['slug_nama_produk']; ?>">
                         <div class="card">
                             <img class="card-img-top img-fluid" src="<?php echo base_url('asset/img/produk/').$row['nama_file']; ?>" alt="<?php echo $row['slug_nama_produk']; ?>">
                             <div class="card-body">
                                 <h5><?php echo $row['nama_produk']; ?></h5>
-                                <small><?php echo $row['harga']; ?></small>
+                                <small>Rp. <?php echo number_format($row['harga'], 2,",",".") ; ?></small>
                             </div>
                             <a href="<?php echo base_url('post/').$row['slug_nama_produk']; ?>" class="btn btn-primary btn-sm">Lihat Produk</a>
                         </div>
@@ -58,48 +58,14 @@
 <section class="section section-support">
     <div class="container">
         <div class="card">
+        <h4>Informasi</h4>
             <div class="row">
-                <div class="col-lg-4">
-					<h5>Berkualitas</h5>
+                <div class="col-lg-6">
+					<p>Mengikuti perkembangan zaman kini para muslimah terus berkreasi dalam menggunakan hijab dan busana muslim. Dari bentuk yang simpel hingga penuh dengan model design pernak-pernik pada hijab maupun pakaian muslim wanita. Hijab sendiri memiliki beberapa jenis dan model nya yang dapat menyesuaikan si pengguna untuk memilih tipe hijab atau kerudung tersebut. Banyak juga para muslimah yang bergabung dalam komunitas hijabers untuk saling berkreasi dan berbagi cerita mengenai hijab maupun busana muslim. Apakah Anda ingin coba memiliki hijab dan pakaian muslimah lainnya lagi.</p>
                 </div>
 
-                <div class="col-lg-4">
-					<h5>Berkualitas</h5>
-                </div>
-
-                <div class="col-lg-4">
-					<h5>Berkualitas</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section section-info">
-    <div class="container">
-        <div class="card">
-            <div class="row">
-                <div class="col-lg-4">
-                <h4>Go Shopping</h4>
-                    <ul class="nav flex-column">
-                        <li class="nav-items"><a href="">Tentang Kami</a></li>
-                        <li><a href="">Tentang Kami</a></li>
-                        <li><a href="">Tentang Kami</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-4">
-                    <h4>Social Media</h4>
-                    <ul>
-                        <li><a href="">Tentang Kami</a></li>
-                        <li><a href="">Tentang Kami</a></li>
-                        <li><a href="">Tentang Kami</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-4">
-                    <h4>Newsletter</h4>
-                    <input type="email" name="email" class="form-control">
+                <div class="col-lg-6">
+					<p>Mengikuti perkembangan zaman kini para muslimah terus berkreasi dalam menggunakan hijab dan busana muslim. Dari bentuk yang simpel hingga penuh dengan model design pernak-pernik pada hijab maupun pakaian muslim wanita. Hijab sendiri memiliki beberapa jenis dan model nya yang dapat menyesuaikan si pengguna untuk memilih tipe hijab atau kerudung tersebut. Banyak juga para muslimah yang bergabung dalam komunitas hijabers untuk saling berkreasi dan berbagi cerita mengenai hijab maupun busana muslim. Apakah Anda ingin coba memiliki hijab dan pakaian muslimah lainnya lagi.</p>
                 </div>
             </div>
         </div>
@@ -107,8 +73,10 @@
 </section>
 
 <div class="footer">
-    <div class="container text-center">
-        2018 GO SHOPPING
+    <div class="container-fluid text-center">
+        <div class="card">
+            2018 GO SHOPPING
+        </div>
     </div>
 </div>
 

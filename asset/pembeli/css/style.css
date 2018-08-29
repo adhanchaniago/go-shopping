@@ -45,3 +45,19 @@ body{
     color: #000;
     font-size: 1em;
 }
+
+.section-produk-post{
+    margin: 100px 0;
+}
+
+.section-support{
+    margin: 15px 0;
+}
+
+.section-support .card{
+    padding: 20px;    
+}
+
+.footer .card{
+    padding: 5px 0;
+}

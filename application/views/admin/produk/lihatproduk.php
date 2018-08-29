@@ -82,7 +82,7 @@
                 </tr>
                 <tr>
                   <td>Harga Produk</td>
-                  <td><?php echo $row['harga']; ?></td>
+                  <td>Rp. <?php $harga = $row['harga']; echo number_format($harga, 2,",","."); ?></td>
                 </tr>
                 <tr>
                   <td>Kategori</td>

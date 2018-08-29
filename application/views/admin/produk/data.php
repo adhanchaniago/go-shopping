@@ -126,6 +126,7 @@
                           <th width="2">#</th>
                           <th width="2">Gambar</th>
                           <th>Nama Produk</th>
+                          <th>Harga</th>
                           <th>Kategori</th>
                           <th>Stok</th>
                           <th width="75"></th>
@@ -137,6 +138,7 @@
                           <td> <?php echo $no++; ?> </td>
                           <td> <img src="<?php echo base_url('asset/img/produk/').$row['nama_file']; ?>" alt="<?php echo $row['slug_nama_produk']; ?>" width="100" height="100"> </td>
                           <td> <?php echo $row['nama_produk']; ?> </td>
+                          <td> Rp. <?php $harga = $row['harga']; echo number_format($harga, 2,",","."); ?> </td>
                           <td> <?php echo $row['kategori']; ?> </td>
                           <td> <?php echo $row['stok']; ?> </td>
                           <td> 
@@ -152,6 +154,7 @@
                           <th width="2">#</th>
                           <th width="2">Gambar</th>
                           <th>Nama Produk</th>
+                          <th>Harga</th>
                           <th>Kategori</th>
                           <th>Stok</th>
                           <th width="75"></th>

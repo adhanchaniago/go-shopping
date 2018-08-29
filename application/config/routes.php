@@ -5,6 +5,11 @@ $route['default_controller'] = 'pembeli';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+// AUTH
+$route['login'] = 'auth/login';
+$route['register'] = 'auth/register';
+$route['logout'] = 'auth/logout';
+
 // PRODUK
 $route['admin/produk/tambah'] = 'admin/tambah';
 $route['admin/produk/lihat/(:any)'] = 'admin/lihat/$1';

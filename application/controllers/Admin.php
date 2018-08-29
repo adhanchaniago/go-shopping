@@ -38,12 +38,12 @@ class Admin extends CI_Controller {
 
 	public function prosestambahproduk()
 	{
-		$this->form_validation->set_rules('nama_produk', 'Nama Produk', 'trim|required');
-		$this->form_validation->set_rules('harga', 'Harga', 'trim|required|numeric');
-		$this->form_validation->set_rules('deskripsi', 'Deskripsi', 'trim|required');
-		$this->form_validation->set_rules('kategori', 'Kategori', 'trim|required');
-		$this->form_validation->set_rules('stok', 'Stok', 'trim|required|numeric');
-		$this->form_validation->set_rules('upload_gambar', 'Gambar', 'trim');
+		$this->form_validation->set_rules('nama_produk', 'Nama Produk', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('harga', 'Harga', 'trim|required|numeric|xss_clean');
+		$this->form_validation->set_rules('deskripsi', 'Deskripsi', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('kategori', 'Kategori', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('stok', 'Stok', 'trim|required|numeric|xss_clean');
+		$this->form_validation->set_rules('upload_gambar', 'Gambar', 'trim|xss_clean');
 		$this->form_validation->set_message('required', "Maaf! Kolom <b>%s</b> tidak boleh kosong");
 
 		if($this->form_validation->run() == FALSE)
@@ -79,7 +79,7 @@ class Admin extends CI_Controller {
 				);
 				
 				$insert = $this->Admin_model->Insert('produk', $insert);
-				$this->session->set_flashdata('success', 'Tambah Produk Berhasil');
+				$this->session->set_flashdata('success', 'Menambah Produk <b>'. $this->input->post('nama_produk') .'</b> Berhasil!');
 				redirect(base_url('admin/produk/tambahproduk'));
 			}
 			else

@@ -16,99 +16,58 @@
     <?php $this->load->view('pembeli/library/header'); ?>
 </section>
 
-<section class="section section-banner">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <img src="https://www.padang.me/asset/foto_slide/hijab1.jpg" alt="Banner" class="img-fluid">
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section section-produk-terbaru">
-    <div class="container">
-        <h4>Produk Terbaru</h4>
-        <div class="row">
-            <?php 
-            $this->db->from('produk');
-            $this->db->order_by('id', 'DESC');
-            $this->db->limit(6);
-            $produk = $this->db->get();
-            $data_produk = $produk->result_array();
-            foreach($data_produk as $row) {
-            ?>
-                <div class="col-lg-2">
-                    <a href="<?php echo base_url('post/').$row['slug_nama_produk']; ?>">
-                        <div class="card">
-                            <img class="card-img-top img-fluid" src="<?php echo base_url('asset/img/produk/').$row['nama_file']; ?>" alt="<?php echo $row['slug_nama_produk']; ?>">
-                            <div class="card-body">
-                                <h5><?php echo $row['nama_produk']; ?></h5>
-                                <small><?php echo $row['harga']; ?></small>
-                            </div>
-                            <div class="card-footer">
-                                <a href="<?php echo base_url('post/').$row['slug_nama_produk']; ?>" class="btn btn-primary btn-sm">Lihat Produk</a>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            <?php } ?>
-        </div>
-    </div>
-</section>
-
-<section class="section section-support">
+<section class="section section-produk-post">
     <div class="container">
         <div class="card">
-            <div class="row">
-                <div class="col-lg-4">
-					<h5>Berkualitas</h5>
+            <div class="card-body">
+                <div class="row">
+                <?php foreach($data as $row) { ?>
+                    <div class="col-md-6">
+                        <img src="<?php echo base_url('asset/img/produk/').$row['nama_file']; ?>" class="card-img-top" height="500" alt="">
+                    </div>
+                    <div class="col-md-6">
+                        <h3><?php echo $row['nama_produk']; ?></h3>
+                        <h5 class="text-danger">Rp. <?php echo number_format($row['harga'], 2,".","."); ?></h5>
+                        <hr>
+                        <?php echo $row['deskripsi']; ?>
+                        <p>Stok: <?php echo $row['stok']; ?></p>
+                        <a href="" class="badge badge-primary"><?php echo $row['kategori']; ?></a>
+                        <hr>
+                        <?php
+                            if($this->session->flashdata('error'))
+                            {
+                              echo '<div class="alert alert-danger">' . $this->session->flashdata('error') . '</div>';
+                            }
+                        ?>
+                        <?php echo form_open('pembeli/tambahkeranjang'); ?>
+                            <?php
+                                $data = array('type' => 'text', 'name' => 'nama_produk', 'value' => $row['nama_produk'], 'hidden' => 'true');
+                                echo form_input($data);
+                            ?>
+                            <?php
+                                $data = array('number' => 'text', 'name' => 'harga', 'value' => $row['harga'], 'hidden' => 'true');
+                                echo form_input($data);
+                            ?>
+                            <label for="">Jumlah Pesanan</label>
+                            <?php
+                                $data = array('type' => 'number', 'class' => 'form-control', 'name' => 'qty', 'required' => 'true');
+                                echo form_input($data);
+                            ?>
+                            <br>
+                            <?php echo form_submit('submit', 'Tambah ke Keranjang', array('class' => 'btn btn-primary')); ?>
+                    </div>
+                <?php } ?>
                 </div>
-
-                <div class="col-lg-4">
-					<h5>Berkualitas</h5>
-                </div>
-
-                <div class="col-lg-4">
-					<h5>Berkualitas</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section section-info">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4">
-                <h4>Go Shopping</h4>
-                <ul>
-                    <li><a href="">Tentang Kami</a></li>
-                    <li><a href="">Tentang Kami</a></li>
-                    <li><a href="">Tentang Kami</a></li>
-                </ul>
-            </div>
-
-            <div class="col-lg-4">
-                <h4>Social Media</h4>
-                <ul>
-                    <li><a href="">Tentang Kami</a></li>
-                    <li><a href="">Tentang Kami</a></li>
-                    <li><a href="">Tentang Kami</a></li>
-                </ul>
-            </div>
-
-            <div class="col-lg-4">
-                <h4>Newsletter</h4>
-                <input type="email" name="email" class="form-control">
             </div>
         </div>
     </div>
 </section>
 
 <div class="footer">
-    <div class="container text-center">
-        2018 GO SHOPPING
+    <div class="container-fluid text-center">
+        <div class="card">
+            2018 GO SHOPPING
+        </div>
     </div>
 </div>
 
