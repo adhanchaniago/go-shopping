@@ -12,8 +12,6 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- Morris chart -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/bower_components/morris.js/morris.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/dist/css/AdminLTE.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/dist/css/skins/_all-skins.min.css">
@@ -90,7 +88,7 @@
                 </tr>
                 <tr>
                   <td>Stok Produk</td>
-                  <td><?php echo $row['stok']; ?></td>
+                  <td><?php echo $row['qty']; ?></td>
                 </tr>
                 <tr>
                   <td>Deskripsi Produk</td>

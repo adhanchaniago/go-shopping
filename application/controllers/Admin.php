@@ -74,7 +74,7 @@ class Admin extends CI_Controller {
 					'harga' => $this->input->post('harga'),
 					'kategori' => $this->input->post('kategori'),
 					'deskripsi' => $this->input->post('deskripsi'),
-					'stok' => $this->input->post('stok'),
+					'qty' => $this->input->post('stok'),
 					'waktu' => date('Y-m-d h:i:s'),
 				);
 				
@@ -101,7 +101,7 @@ class Admin extends CI_Controller {
 			'harga' => $data[0]['harga'],
 			'kategori' => $data[0]['kategori'],
 			'deskripsi' => $data[0]['deskripsi'],
-			'stok' => $data[0]['stok'],
+			'qty' => $data[0]['stok'],
 		);
 		$this->load->view('admin/produk/editproduk', $data);
 	}
@@ -130,7 +130,7 @@ class Admin extends CI_Controller {
 				'harga' => $this->input->post('harga'),
 				'kategori' => $this->input->post('kategori'),
 				'deskripsi' => $this->input->post('deskripsi'),
-				'stok' => $this->input->post('stok'),
+				'qty' => $this->input->post('stok'),
 				'waktu' => date('Y-m-d h:i:s'),
 			);
 			$where = array('id' => $this->input->post('id'));

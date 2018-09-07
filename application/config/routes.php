@@ -20,6 +20,9 @@ $route['admin/produk/editkategori/(:any)'] = 'admin/editkategori/$1';
 
 // HOME
 $route['post/(:any)'] = 'pembeli/post/$1';
-
-$route['masuk'] = 'auth/masuk';
-$route['daftar'] = 'auth/daftar';
+$route['keranjang'] = 'pembeli/keranjang';
+$route['hapuskeranjang/(:any)'] = 'pembeli/hapuskeranjang/$1';
+$route['pembayaran'] = 'pembeli/pembayaran';
+$route['profil'] = 'pembeli/profil';
+$route['editprofil'] = 'pembeli/editprofil';
+$route['riwayat'] = 'pembeli/riwayat';

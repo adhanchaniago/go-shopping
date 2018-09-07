@@ -28,11 +28,31 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href='<?php echo base_url('keranjang'); ?>'>Keranjang <i class='fa fa-shopping-cart'></i></a>
+                <?php
+                $session = $this->session->userdata('username');
+                $this->db->from('keranjang');
+                $this->db->where('user', $session);
+                $data = $this->db->get();
+                ?>
+                    <a class="nav-link" href='<?php echo base_url('keranjang'); ?>'>Keranjang (<?php echo $data->num_rows(); ?>) </a>
                 </li>
+                <?php
+                if(!$session) {
+                ?>
                 <li class="nav-item">
-                    <a class="nav-link" href=''><i class='fa fa-user'></i></a>
+                    <a class="nav-link" href="<?php echo base_url('login'); ?>"><i class='fa fa-user'></i></a>
                 </li>
+                <?php } else { ?>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <?php echo $session; ?>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<?php echo base_url('profil'); ?>">Profil</a>
+                        <a class="dropdown-item" href="<?php echo base_url('logout'); ?>">Logout</a>
+                    </div>
+                </li>
+                <?php } ?>
             </ul>
         </div>
     </div>  

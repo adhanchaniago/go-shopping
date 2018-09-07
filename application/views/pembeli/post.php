@@ -30,7 +30,7 @@
                         <h5 class="text-danger">Rp. <?php echo number_format($row['harga'], 2,".","."); ?></h5>
                         <hr>
                         <?php echo $row['deskripsi']; ?>
-                        <p>Stok: <?php echo $row['stok']; ?></p>
+                        <p>Stok: <?php echo $row['qty']; ?></p>
                         <a href="" class="badge badge-primary"><?php echo $row['kategori']; ?></a>
                         <hr>
                         <?php
@@ -40,6 +40,7 @@
                             }
                         ?>
                         <?php echo form_open('pembeli/tambahkeranjang'); ?>
+                        <input type="text" name="id" value="<?php echo $row['id']; ?>" hidden>
                             <?php
                                 $data = array('type' => 'text', 'name' => 'nama_produk', 'value' => $row['nama_produk'], 'hidden' => 'true');
                                 echo form_input($data);
@@ -48,13 +49,22 @@
                                 $data = array('number' => 'text', 'name' => 'harga', 'value' => $row['harga'], 'hidden' => 'true');
                                 echo form_input($data);
                             ?>
+                            <?php
+                            $session = $this->session->userdata('username');
+                            if(!$session)
+                            {
+                                echo '<p class="text-danger">Silahkan Daftar / Masuk Terlebih Dahulu Untuk Melakukan Pemesanan</p>';
+                            }
+                            else
+                            {
+                            ?>
                             <label for="">Jumlah Pesanan</label>
                             <?php
                                 $data = array('type' => 'number', 'class' => 'form-control', 'name' => 'qty', 'required' => 'true');
                                 echo form_input($data);
                             ?>
                             <br>
-                            <?php echo form_submit('submit', 'Tambah ke Keranjang', array('class' => 'btn btn-primary')); ?>
+                            <?php echo form_submit('submit', 'Tambah ke Keranjang', array('class' => 'btn btn-primary')); } ?>
                     </div>
                 <?php } ?>
                 </div>
@@ -64,11 +74,7 @@
 </section>
 
 <div class="footer">
-    <div class="container-fluid text-center">
-        <div class="card">
-            2018 GO SHOPPING
-        </div>
-    </div>
+    <?php $this->load->view('pembeli/library/footer'); ?>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

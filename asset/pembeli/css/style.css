@@ -58,6 +58,25 @@ body{
     padding: 20px;    
 }
 
-.footer .card{
-    padding: 5px 0;
+/*---------- PROFIL ----------*/
+.section-profil{
+    margin: 100px 0;
+    min-height: 65vh;
+}
+
+/*---------- KERANJANG ----------*/
+.section-keranjang{
+    margin: 100px 0;
+    min-height: 65vh;
+}
+
+/*---------- PEMBAYARAN ----------*/
+.section-pembayaran{
+    margin: 100px 0;
+    min-height: 65vh;
+}
+
+.footer{
+    position: relative;
+    z-index: 1;
 }

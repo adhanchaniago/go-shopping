@@ -128,7 +128,7 @@
                           <th>Nama Produk</th>
                           <th>Harga</th>
                           <th>Kategori</th>
-                          <th>Stok</th>
+                          <th>Qty</th>
                           <th width="75"></th>
                         </tr>
                     </thead>
@@ -140,7 +140,7 @@
                           <td> <?php echo $row['nama_produk']; ?> </td>
                           <td> Rp. <?php $harga = $row['harga']; echo number_format($harga, 2,",","."); ?> </td>
                           <td> <?php echo $row['kategori']; ?> </td>
-                          <td> <?php echo $row['stok']; ?> </td>
+                          <td> <?php echo $row['qty']; ?> </td>
                           <td> 
                             <a href="<?php echo base_url('admin/produk/lihat/').$row['slug_nama_produk']; ?>" class="label label-primary"><i class="fa fa-fw fa-eye"></i></a>
                             <a href="<?php echo base_url('admin/produk/edit/').$row['slug_nama_produk']; ?>" class="label label-success"><i class="fa fa-fw fa-edit"></i></a>
@@ -156,7 +156,7 @@
                           <th>Nama Produk</th>
                           <th>Harga</th>
                           <th>Kategori</th>
-                          <th>Stok</th>
+                          <th>Qty</th>
                           <th width="75"></th>
                         </tr>
                     </tfoot>
