@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/dist/css/skins/_all-skins.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/custom.css">
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -120,41 +121,46 @@
                   echo '<p class="alert alert-success">' . $this->session->flashdata('success') . '</p>';
                 }
               ?>
-                <table id="example1" class="table table-bordered table-striped">
+                <table id="example1" class="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
                           <th width="2">#</th>
-                          <th width="2">Gambar</th>
                           <th>Nama Produk</th>
-                          <th>Kategori</th>
-                          <th>Stok</th>
-                          <th width="75"></th>
+                          <th>Qty</th>
+                          <th>Alamat</th>
+                          <th>Tanggal</th>
+                          <th>Nama Pembeli</th>
+                          <th>User</th>
+                          <th>Status</th>
+                          <th></th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php $no = 1; foreach($data as $row) { ?>
                         <tr>
                           <td> <?php echo $no++; ?> </td>
-                          <td> <img src="<?php echo base_url('asset/img/produk/').$row['nama_file']; ?>" alt="<?php echo $row['slug_nama_produk']; ?>" width="100" height="100"> </td>
-                          <td> <?php echo $row['nama_produk']; ?> </td>
-                          <td> <?php echo $row['kategori']; ?> </td>
-                          <td> <?php echo $row['stok']; ?> </td>
-                          <td> 
-                            <a href="<?php echo base_url('admin/produk/lihat/').$row['slug_nama_produk']; ?>" class="label label-primary"><i class="fa fa-fw fa-eye"></i></a>
-                            <a href="<?php echo base_url('admin/produk/edit/').$row['slug_nama_produk']; ?>" class="label label-success"><i class="fa fa-fw fa-edit"></i></a>
-                            <a href="<?php echo base_url('admin/produk/hapus/').$row['slug_nama_produk']; ?>" class="label label-danger"><i class="fa fa-fw fa-close"></i></a>
-                          </td>
+                          <td> <?php echo $row['nama_produk'] ?> </td>
+                          <td> <?php echo $row['qty']; ?> </td>
+                          <td> <?php echo $row['alamat']; ?> </td>
+                          <td> <?php echo $row['tanggal']; ?> </td>
+                          <td> <?php echo $row['nama_pembeli']; ?> </td>
+                          <td> <?php echo $row['user']; ?> </td>
+                          <td> <label class="label label-primary"><?php echo $row['status']; ?></label> </td>
+                          <td> <a href="<?php echo base_url('admin/penjualan/lihat/').$row['id_transaksi']; ?>" class="label label-primary"><i class="fa fa-eye" aria-hidden="true"></i></a> </td>
                         </tr>
                     <?php } ?>
                     </tbody>
                     <tfoot>
                         <tr>
                           <th width="2">#</th>
-                          <th width="2">Gambar</th>
                           <th>Nama Produk</th>
-                          <th>Kategori</th>
-                          <th>Stok</th>
-                          <th width="75"></th>
+                          <th>Qty</th>
+                          <th>Alamat</th>
+                          <th>Tanggal</th>
+                          <th>Nama Pembeli</th>
+                          <th>User</th>
+                          <th>Status</th>
+                          <th></th>
                         </tr>
                     </tfoot>
                 </table>
@@ -194,18 +200,13 @@
 <!-- DataTables -->
 <script src="<?php echo base_url(); ?>asset/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url(); ?>asset/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
 <script>
-  $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-  })
+$(document).ready(function() {
+        $('#example1').DataTable({
+            responsive: true
+        });
+    });
 </script>
 </body>
 </html>

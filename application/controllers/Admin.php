@@ -210,7 +210,6 @@ class Admin extends CI_Controller {
 			$this->session->set_flashdata('success', 'Mengubah Kategori <b>'.$this->input->post('kategori').'</b> Berhasil');
 			redirect(base_url('admin/produk/kategori'));
 		}
- 
 	}
 
 	public function hapuskategori($id)
@@ -223,7 +222,9 @@ class Admin extends CI_Controller {
 
 	public function penjualan()
 	{
-		$this->load->view('admin/laporan/penjualan');
+		$data = $this->Admin_model->get('transaksi');
+		$data = array('data' => $data);
+		$this->load->view('admin/laporan/penjualan', $data);
 	}
 
 	public function date()
