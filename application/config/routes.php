@@ -18,6 +18,9 @@ $route['admin/produk/hapus/(:any)'] = 'admin/hapus/$1';
 $route['admin/produk/kategori'] = 'admin/kategori';
 $route['admin/produk/editkategori/(:any)'] = 'admin/editkategori/$1';
 
+// PENJUALAN
+$route['admin/penjualan/edit/(:any)'] = 'admin/editpenjualan/$1';
+
 // HOME
 $route['post/(:any)'] = 'pembeli/post/$1';
 $route['keranjang'] = 'pembeli/keranjang';

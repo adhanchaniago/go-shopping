@@ -1,26 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>AdminLTE 2 | Dashboard</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/bower_components/font-awesome/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/dist/css/AdminLTE.min.css">
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/dist/css/skins/_all-skins.min.css">
-  <!-- Select2 -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/bower_components/select2/dist/css/select2.min.css">
-
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/custom.css">
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <?php $this->load->view('admin/library/head'); ?>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -62,29 +44,18 @@
             <!-- /.box-header -->
             <div class="box-body">
               <?php
-              if($this->session->flashdata('success'))
-              {
-              ?>
-                <div class="alert alert-success">
-                  <?php echo $this->session->flashdata('success'); ?>
-                </div>
-              <?php
-              }
+              if($this->session->flashdata('success')):
+                echo '<div class="alert alert-success">'. $this->session->flashdata('success') .'</div>';
+              endif;
               ?>
 
-              <?php        
-              if($this->session->flashdata('error'))
-              {
-              ?>
-                <div class="alert alert-danger">
-                  <?php echo $this->session->flashdata('error'); ?>
-                </div>
               <?php
-              }
+              if($this->session->flashdata('error')):
+                echo '<div class="alert alert-danger">'. $this->session->flashdata('error') .'</div>';
+              endif;
               ?>
-              <?php ?>
               <div class="col-md-8">
-                <?php echo form_open("admin/prosesupdateproduk", array('enctype'=>'multipart/form-data')); ?>
+                <?php echo form_open("admin/prosesupdateproduk"); ?>
                   <input type="text" name="id" value="<?php echo $id; ?>" hidden>
                   <div class="form-group">
                     <label>Nama Produk</label>
@@ -120,7 +91,7 @@
 
                 <div class="form-group">
                   <label>Stok</label>
-                  <?php $data = array('type' => 'number', 'class' => 'form-control', 'name' => 'stok', 'value' => set_value('stok', $stok)); echo form_input($data); ?>
+                  <?php $data = array('type' => 'number', 'class' => 'form-control', 'name' => 'qty', 'value' => set_value('qty', $qty)); echo form_input($data); ?>
                   <?php echo form_error('stok', '<p class="text-red">', '</p>'); ?>
                 </div>
 
@@ -150,26 +121,7 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- Select2 -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/select2/dist/js/select2.full.min.js"></script>
-<!-- FastClick -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url(); ?>asset/admin/dist/js/adminlte.min.js"></script>
-<!-- SlimScroll -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?php echo base_url(); ?>asset/admin/dist/js/pages/dashboard2.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url(); ?>asset/admin/dist/js/demo.js"></script>
-<!-- CK Editor -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/ckeditor/ckeditor.js"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script src="<?php echo base_url(); ?>asset/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<?php $this->load->view('admin/library/js'); ?>
 <script>
   $(function () {
     // Replace the <textarea id="editor1"> with a CKEditor

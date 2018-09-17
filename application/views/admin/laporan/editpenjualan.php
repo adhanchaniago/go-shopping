@@ -20,7 +20,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <a href="<?php echo base_url('admin/produk/kategori'); ?>" class="btn btn-primary">Kembali</a>
+        <a href="<?php echo base_url('admin/penjualan'); ?>" class="btn btn-primary">Kembali</a>
       </h1>
       <ol class="breadcrumb" style="padding: 0;">
         <li></li>
@@ -44,27 +44,29 @@
         <div class="col-md-6">
           <div class="box box-danger box-solid">
             <div class="box-header">
-              <h3 class="box-title">Edit Kategori</h3>
+              <h3 class="box-title">Edit Penjualan</h3>
             </div>
 
             <div class="box-body">
               <?php
-              if($this->session->flashdata('success'))
-              {
+              if($this->session->flashdata('success')):
                 echo '<div class="alert alert-success">' . $this->session->flashdata('success') . '</div>';
-              }
+              endif;
 
-              if($this->session->flashdata('error'))
-              {
+              if($this->session->flashdata('error')):
                 echo '<div class="alert alert-danger">' . $this->session->flashdata('error') . '</div>';
-              }
+              endif;
               ?>
-              <?php echo form_open('admin/prosesupdatekategori'); ?>
+              <?php echo form_open('admin/prosesupdatepenjualan'); ?>
                 <div class="box-body">
                   <div class="form-group">
-                    <label>Nama Kategori</label>
+                    <label>Status Pemesanan</label>
                     <input type="text" name="id" value="<?php echo $id; ?>" hidden>
-                    <?php $kat = array('type' => 'text', 'class' => 'form-control', 'name' => 'kategori', 'value' => set_value('kategori', $kategori)); echo form_input($kat); ?>
+                    <select name="status" class="form-control" id="status">
+                        <option value="Dalam Pemesanan" <?php echo set_select('status', 'Dalam Pemesanan', ($status == 'Dalam Pemesanan')); ?> >Dalam Pemesanan</option>
+                        <option value="Dalam Pengiriman" <?php echo set_select('status', 'Dalam Pengiriman', ($status == 'Dalam Pengiriman')); ?> >Dalam Pengiriman</option>
+                        <option value="Barang Diterima" <?php echo set_select('status', 'Barang Diterima', ($status == 'Barang Diterima')); ?> >Barang Diterima</option>
+                    </select>
                     <?php echo form_error('kategori', validation_errors()) ?>
                   </div>
                 </div>

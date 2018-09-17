@@ -42,7 +42,7 @@ class Admin extends CI_Controller {
 		$this->form_validation->set_rules('harga', 'Harga', 'trim|required|numeric|xss_clean');
 		$this->form_validation->set_rules('deskripsi', 'Deskripsi', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('kategori', 'Kategori', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('stok', 'Stok', 'trim|required|numeric|xss_clean');
+		$this->form_validation->set_rules('qty', 'Stok', 'trim|required|numeric|xss_clean');
 		$this->form_validation->set_rules('upload_gambar', 'Gambar', 'trim|xss_clean');
 		$this->form_validation->set_message('required', "Maaf! Kolom <b>%s</b> tidak boleh kosong");
 
@@ -55,7 +55,7 @@ class Admin extends CI_Controller {
 		{
 			$config['upload_path']   = './asset/img/produk';
 			$config['allowed_types'] = 'jpg|png|jpeg';
-			$config['max_size']      = '200';
+			$config['max_size']      = '1000';
 			$config['remove_space']  = TRUE;
 
 			$this->load->library('upload',$config);
@@ -74,7 +74,7 @@ class Admin extends CI_Controller {
 					'harga' => $this->input->post('harga'),
 					'kategori' => $this->input->post('kategori'),
 					'deskripsi' => $this->input->post('deskripsi'),
-					'qty' => $this->input->post('stok'),
+					'qty' => $this->input->post('qty'),
 					'waktu' => date('Y-m-d h:i:s'),
 				);
 				
@@ -101,7 +101,7 @@ class Admin extends CI_Controller {
 			'harga' => $data[0]['harga'],
 			'kategori' => $data[0]['kategori'],
 			'deskripsi' => $data[0]['deskripsi'],
-			'qty' => $data[0]['stok'],
+			'qty' => $data[0]['qty'],
 		);
 		$this->load->view('admin/produk/editproduk', $data);
 	}
@@ -112,12 +112,12 @@ class Admin extends CI_Controller {
 		$this->form_validation->set_rules('harga', 'Harga', 'trim|required|numeric');
 		$this->form_validation->set_rules('deskripsi', 'Deskripsi', 'trim|required');
 		$this->form_validation->set_rules('kategori', 'Kategori', 'trim|required');
-		$this->form_validation->set_rules('stok', 'Stok', 'trim|required|numeric');
+		$this->form_validation->set_rules('qty', 'Qty', 'trim|required|numeric');
 		$this->form_validation->set_message('required', "Maaf! Kolom <b>%s</b> tidak boleh kosong");
 
 		if($this->form_validation->run() == FALSE)
 		{
-			$this->load->view('admin/produk/tambah');
+			$this->load->view('admin/produk/editproduk');
 		}
 		else
 		{
@@ -130,7 +130,7 @@ class Admin extends CI_Controller {
 				'harga' => $this->input->post('harga'),
 				'kategori' => $this->input->post('kategori'),
 				'deskripsi' => $this->input->post('deskripsi'),
-				'qty' => $this->input->post('stok'),
+				'qty' => $this->input->post('qty'),
 				'waktu' => date('Y-m-d h:i:s'),
 			);
 			$where = array('id' => $this->input->post('id'));
@@ -225,6 +225,38 @@ class Admin extends CI_Controller {
 		$data = $this->Admin_model->get('transaksi');
 		$data = array('data' => $data);
 		$this->load->view('admin/laporan/penjualan', $data);
+	}
+
+	public function editpenjualan($id)
+	{
+		$where = array('id' => $id);
+		$data = $this->Admin_model->GetWhere('transaksi', $where);
+		$data = array(
+			'id' => $data[0]['id'],
+			'status' => $data[0]['status'],
+		);
+		$this->load->view('admin/laporan/editpenjualan', $data);
+	}
+
+	public function prosesupdatepenjualan()
+	{
+		$this->form_validation->set_rules('status', 'Status', 'trim|required');
+		$this->form_validation->set_message('required', 'Mohon Maaf! <b>%s</b> Tidak Boleh Kosong');
+
+		if($this->form_validation->run() == FALSE)
+		{
+			$this->load->view('admin/laporan/editpenjualan');
+		}
+		else
+		{
+			$where = array('id' => $this->input->post('id'));
+			$data = array(
+				'status' => $this->input->post('status'),
+			);	
+			$update = $this->Admin_model->Update('transaksi', $data, $where);
+			$this->session->set_flashdata('success', 'Berhasil Mengubah Status Menjadi <b>'.$this->input->post('status').'</b>');
+			redirect(base_url('admin/penjualan'));
+		}
 	}
 
 	public function date()

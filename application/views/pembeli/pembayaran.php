@@ -100,7 +100,7 @@
                             foreach($data_list2 as $row2) {
                             ?>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <?php echo $row2['nama_produk']; ?> <span>Rp. <?php echo number_format($row2['harga'],2,".","."); ?></span>
+                                <?php echo $row2['nama_produk']; ?> <span>Rp. <?php echo number_format($row2['total_harga'],2,".","."); ?></span>
                                 <span class="badge badge-primary badge-pill"><?php echo $row2['qty']; ?></span>
                             </li>
                             <?php } ?>

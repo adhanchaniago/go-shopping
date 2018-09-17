@@ -36,7 +36,7 @@
                                 <tr>
                                     <th>Produk</th>
                                     <th>Qty</th>
-                                    <th>Harga</th>
+                                    <th>Harga (Rp.)</th>
                                     <th>Tanggal</th>
                                     <th>Status</th>
                                 </tr>
@@ -46,7 +46,9 @@
                                 <tr>
                                     <td><?php echo $row['nama_produk']; ?></td>
                                     <td><?php echo $row['qty']; ?></td>
-                                    <td><?php echo $row['total_harga']; ?></td>
+                                    <td>
+                                        <?php echo number_format($row['total_harga'], 2,'.','.'); ?>
+                                    </td>
                                     <td><?php echo $row['tanggal']; ?></td>
                                     <td><?php echo $row['status']; ?></td>
                                 </tr>

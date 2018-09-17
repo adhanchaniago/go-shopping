@@ -1,26 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/bower_components/font-awesome/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/dist/css/AdminLTE.min.css">
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/dist/css/skins/_all-skins.min.css">
-  <!-- Select2 -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/bower_components/select2/dist/css/select2.min.css">
-
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/custom.css">
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <title><?php echo SITE_NAME .": ". ucfirst($this->uri->segment(1)) ." - ". ucfirst($this->uri->segment(2)) ?></title>
+  <?php $this->load->view('admin/library/head'); ?>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -62,37 +44,33 @@
             <!-- /.box-header -->
             <div class="box-body">
               <?php
-              if($this->session->flashdata('success'))
-              {
-              ?>
-                <div class="alert alert-success">
-                  <?php echo $this->session->flashdata('success'); ?>
-                </div>
-              <?php
-              }
+              if($this->session->flashdata('success')):
+                echo '<div class="alert alert-success">'. $this->session->flashdata('success') .'</div>';
+              endif;
               ?>
 
-              <?php        
-              if($this->session->flashdata('error'))
-              {
-              ?>
-                <div class="alert alert-danger">
-                  <?php echo $this->session->flashdata('error'); ?>
-                </div>
               <?php
-              }
+              if($this->session->flashdata('error')):
+                echo '<div class="alert alert-danger">'. $this->session->flashdata('error') .'</div>';
+              endif;
               ?>
               <div class="col-md-8">
                 <?php echo form_open("admin/prosestambahproduk", array('enctype'=>'multipart/form-data')); ?>
                   <div class="form-group">
                     <label>Nama Produk</label>
-                    <input type="text" class="form-control" name="nama_produk" placeholder="Masukkan Nama Produk" value="<?php echo set_value('nama_produk'); ?>">
+                    <?php
+                    $data = array('class' => 'form-control', 'name' => 'nama_produk', 'id' => 'nama_produk', 'placeholder' => 'Masukkan Nama Produk', 'value' => set_value('nama_produk'), 'required' => 'true');
+                    echo form_input($data);
+                    ?>
                     <?php echo form_error('nama_produk', '<p class="text-red">', '</p>'); ?>
                   </div>
 
                   <div class="form-group">
                     <label>Harga</label>
-                    <input type="text" class="form-control" name="harga" placeholder="Masukkan Harga" value="<?php echo set_value('harga'); ?>">
+                    <?php
+                    $data = array('type' => 'number', 'class' => 'form-control', 'name' => 'harga', 'id' => 'harga', 'placeholder' => 'Masukkan Harga', 'value' => set_value('harga'), 'required' => 'true');
+                    echo form_input($data);
+                    ?>
                     <?php echo form_error('harga', '<p class="text-red">', '</p>'); ?>
                   </div>
 
@@ -109,23 +87,26 @@
                 <div class="form-group">
                   <label>Kategori</label>
                   <select class="form-control select2" name="kategori">
-                  <?php $kat = $this->db->get('kategori'); $kat=$kat->result_array(); foreach($kat as $row) { ?>
+                  <?php $kat = $this->db->get('kategori'); $kat=$kat->result_array(); foreach($kat as $row): ?>
                     <option value="<?php echo $row['kategori']; ?>"><?php echo $row['kategori']; ?></option>
-                  <?php } ?>
+                  <?php endforeach; ?>
                   </select>
                   <?php echo form_error('kategori', '<p class="text-red">', '</p>'); ?>
                 </div>
 
                 <div class="form-group">
                   <label>Stok</label>
-                  <input type="number" class="form-control" name="stok" placeholder="Masukkan Stok Produk" value="<?php echo set_value('stok'); ?>">
-                  <?php echo form_error('stok', '<p class="text-red">', '</p>'); ?>
+                  <?php
+                    $data = array('type' => 'number', 'class' => 'form-control', 'name' => 'qty', 'id' => 'qty', 'placeholder' => 'Masukkan Stok Produk', 'value' => set_value('qty'), 'required' => 'true');
+                    echo form_input($data);
+                  ?>
+                  <?php echo form_error('qty', '<p class="text-red">', '</p>'); ?>
                 </div>
 
                 <div class="form-group">
                   <label>Gambar</label>
                   <input type="file" class="form-control" name="upload_gambar">
-                  <p class="help-block">Maksimun Ukuran File 200 KB.</p>
+                  <b><p class="help-block">Maksimun Ukuran File 1 MB.</p></b>
                   <?php echo form_error('upload_gambar', '<p class="text-red">', '</p>'); ?>
                 </div>
               </div>
@@ -153,26 +134,7 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- Select2 -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/select2/dist/js/select2.full.min.js"></script>
-<!-- FastClick -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url(); ?>asset/admin/dist/js/adminlte.min.js"></script>
-<!-- SlimScroll -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?php echo base_url(); ?>asset/admin/dist/js/pages/dashboard2.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url(); ?>asset/admin/dist/js/demo.js"></script>
-<!-- CK Editor -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/ckeditor/ckeditor.js"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script src="<?php echo base_url(); ?>asset/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<?php $this->load->view('admin/library/js'); ?>
 <script>
   $(function () {
     // Replace the <textarea id="editor1"> with a CKEditor

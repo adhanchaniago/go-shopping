@@ -100,7 +100,7 @@ class Pembeli extends CI_Controller {
 				{
 					if($z >= $cek2['qty'])
 					{
-						$this->session->set_flashdata('update', 'Gagal Update <b>'. $this->input->post('nama_produk') .'</b> ke dalam Keranjang.'  );
+						$this->session->set_flashdata('gagal', 'Gagal Update <b>'. $this->input->post('nama_produk') .'</b> ke dalam Keranjang.'  );
 						redirect(base_url('keranjang'));
 					}
 					else
@@ -108,7 +108,7 @@ class Pembeli extends CI_Controller {
 						$hasil = $z+$qty; print_r($hasil);
 						if($hasil > $cek2['qty'])
 						{
-							$this->session->set_flashdata('update', 'Gagal Update <b>'. $this->input->post('nama_produk') .'</b> ke dalam Keranjang.'  );
+							$this->session->set_flashdata('gagal', 'Gagal Update <b>'. $this->input->post('nama_produk') .'</b> ke dalam Keranjang.'  );
 							redirect(base_url('keranjang'));
 						}
 						else
@@ -168,7 +168,7 @@ class Pembeli extends CI_Controller {
 				$result[] = array(
 					'nama_produk' => $napro = $this->input->post('nama_produk')[$key],
 					'qty' => $beli = $this->input->post('qty')[$key],
-					'total_harga' => $beli * $this->input->post('total_harga')[$key],
+					'total_harga' => $this->input->post('total_harga')[$key],
 					'nama_pembeli' => $this->input->post('nama_lengkap'),
 					'provinsi' => $this->input->post('provinsi'),
 					'kota_kabupaten' => $this->input->post('kota-kabupaten'),
@@ -179,6 +179,7 @@ class Pembeli extends CI_Controller {
 					'catatan' => $this->input->post('catatan'),
 					'tanggal' => date('Y-m-d'),
 					'user' => $this->input->post('user')[$key],
+					'status' => 'Dalam Pemesanan',
 				);
 			}
 

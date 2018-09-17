@@ -1,28 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>AdminLTE 2 | Dashboard</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/bower_components/font-awesome/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- Morris chart -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/bower_components/morris.js/morris.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/dist/css/AdminLTE.min.css">
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/dist/css/skins/_all-skins.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css">
-  <link rel="stylesheet" href="<?php echo base_url(); ?>asset/admin/custom.css">
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <?php $this->load->view('admin/library/head'); ?>  
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -56,8 +36,12 @@
             <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Produk</span>
-              <span class="info-box-number"><?php $produk = $this->db->get('produk'); echo $produk->num_rows(); ?> <small> Pcs</small></span>
+              <span class="info-box-text">Dalam Pemesanan</span>
+              <span class="info-box-number">
+                <?php 
+                  $query = $this->db->get_where('transaksi', array('status' => 'Dalam Pemesanan')); echo $query->num_rows(); 
+                ?>
+              </span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -69,10 +53,10 @@
             <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Tersedia</span>
-              <span class="info-box-number">-
-                <?php
-                
+              <span class="info-box-text">Dalam Pengiriman</span>
+              <span class="info-box-number">
+                <?php 
+                  $query = $this->db->get_where('transaksi', array('status' => 'Dalam Pengiriman')); echo $query->num_rows(); 
                 ?>
               </span>
             </div>
@@ -90,8 +74,12 @@
             <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Tidak Tersedia</span>
-              <span class="info-box-number">-</span>
+              <span class="info-box-text">Barang Diterima</span>
+              <span class="info-box-number">
+                <?php 
+                  $query = $this->db->get_where('transaksi', array('status' => 'Barang Diterima')); echo $query->num_rows(); 
+                ?>
+              </span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -130,8 +118,7 @@
                           <th>Alamat</th>
                           <th>Tanggal</th>
                           <th>Nama Pembeli</th>
-                          <th>User</th>
-                          <th>Status</th>
+                          <th width="10">Status</th>
                           <th></th>
                         </tr>
                     </thead>
@@ -144,9 +131,24 @@
                           <td> <?php echo $row['alamat']; ?> </td>
                           <td> <?php echo $row['tanggal']; ?> </td>
                           <td> <?php echo $row['nama_pembeli']; ?> </td>
-                          <td> <?php echo $row['user']; ?> </td>
-                          <td> <label class="label label-primary"><?php echo $row['status']; ?></label> </td>
-                          <td> <a href="<?php echo base_url('admin/penjualan/lihat/').$row['id_transaksi']; ?>" class="label label-primary"><i class="fa fa-eye" aria-hidden="true"></i></a> </td>
+                          <td> 
+                            <?php
+                            if($row['status'] == 'Dalam Pemesanan'):
+                              echo '<label class="label label-primary">'.$row['status'].'</label>';
+                            endif;
+                            if($row['status'] == 'Dalam Pengiriman'):
+                              echo '<label class="label label-info">'.$row['status'].'</label>';
+                            endif;
+                            if($row['status'] == 'Barang Diterima'):
+                              echo '<label class="label label-success">'.$row['status'].'</label>';
+                            endif;
+                            ?>
+                            
+                          </td>
+                          <td> 
+                            <a href="<?php echo base_url('admin/penjualan/lihat/').$row['id']; ?>" class="label label-primary"><i class="fa fa-eye" aria-hidden="true"></i></a> 
+                            <a href="<?php echo base_url('admin/penjualan/edit/').$row['id']; ?>" class="label label-success"><i class="fa fa-edit" aria-hidden="true"></i></a> 
+                          </td>
                         </tr>
                     <?php } ?>
                     </tbody>
@@ -158,7 +160,6 @@
                           <th>Alamat</th>
                           <th>Tanggal</th>
                           <th>Nama Pembeli</th>
-                          <th>User</th>
                           <th>Status</th>
                           <th></th>
                         </tr>
@@ -183,24 +184,7 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- FastClick -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url(); ?>asset/admin/dist/js/adminlte.min.js"></script>
-<!-- SlimScroll -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?php echo base_url(); ?>asset/admin/dist/js/pages/dashboard2.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url(); ?>asset/admin/dist/js/demo.js"></script>
-<!-- DataTables -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
+<?php $this->load->view('admin/library/js'); ?>
 <script>
 $(document).ready(function() {
         $('#example1').DataTable({
