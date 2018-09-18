@@ -19,6 +19,11 @@
 <script src="<?php echo base_url(); ?>asset/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url(); ?>asset/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
+<!-- ChartJS -->
+<script src="<?php echo base_url(); ?>asset/admin/bower_components/chart.js/Chart.js"></script>
+<!-- Morris.js charts -->
+<script src="<?php echo base_url(); ?>asset/admin/bower_components/raphael/raphael.min.js"></script>
+<script src="<?php echo base_url(); ?>asset/admin/bower_components/morris.js/morris.min.js"></script>
 <!-- CK Editor -->
 <script src="<?php echo base_url(); ?>asset/admin/bower_components/ckeditor/ckeditor.js"></script>
 <!-- Bootstrap WYSIHTML5 -->

@@ -267,4 +267,9 @@ class Admin extends CI_Controller {
 		echo $diff->format('%R%a days');
 	}
 
+	public function chart()
+	{
+		$this->load->view('admin/laporan/chart');
+	}
+
 }
