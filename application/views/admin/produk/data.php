@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AdminLTE 2 | Dashboard</title>
+  <title><?php echo SITE_NAME .": ". ucfirst($this->uri->segment(1)) ." - ". ucfirst($this->uri->segment(2)) ?></title>
   <?php $this->load->view('admin/library/head'); ?>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -29,57 +29,6 @@
 
     <!-- Main content -->
     <section class="content">
-      <!-- Info boxes -->
-      <div class="row">
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Produk</span>
-              <span class="info-box-number"><?php $produk = $this->db->get('produk'); echo $produk->num_rows(); ?> <small> Pcs</small></span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Tersedia</span>
-              <span class="info-box-number">-
-                <?php
-                
-                ?>
-              </span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-
-        <!-- fix for small devices only -->
-        <div class="clearfix visible-sm-block"></div>
-
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Tidak Tersedia</span>
-              <span class="info-box-number">-</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
 
       <!-- Main row -->
       <div class="row">
@@ -96,10 +45,10 @@
             <!-- /.box-header -->
             <div class="box-body table-responsive">
               <?php
-                if($this->session->flashdata('success'))
-                {
-                  echo '<p class="alert alert-success">' . $this->session->flashdata('success') . '</p>';
-                }
+              if($this->session->flashdata('success'))
+              {
+                echo '<p class="alert alert-success">' . $this->session->flashdata('success') . '</p>';
+              }
               ?>
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
@@ -160,24 +109,7 @@
 
 </div>
 <!-- ./wrapper -->
-
-<!-- jQuery 3 -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- FastClick -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url(); ?>asset/admin/dist/js/adminlte.min.js"></script>
-<!-- SlimScroll -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?php echo base_url(); ?>asset/admin/dist/js/pages/dashboard2.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url(); ?>asset/admin/dist/js/demo.js"></script>
-<!-- DataTables -->
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="<?php echo base_url(); ?>asset/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<?php $this->load->view('admin/library/js'); ?>
 <script>
   $(function () {
     $('#example1').DataTable()

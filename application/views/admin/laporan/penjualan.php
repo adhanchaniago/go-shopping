@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AdminLTE 2 | Dashboard</title>
+  <title><?php echo SITE_NAME .": ". ucfirst($this->uri->segment(1)) ." - ". ucfirst($this->uri->segment(2)) ?></title>
   <?php $this->load->view('admin/library/head'); ?>  
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -39,7 +39,8 @@
               <span class="info-box-text">Dalam Pemesanan</span>
               <span class="info-box-number">
                 <?php 
-                  $query = $this->db->get_where('transaksi', array('status' => 'Dalam Pemesanan')); echo $query->num_rows(); 
+                  $query = $this->db->get_where('transaksi', array('status' => 'Dalam Pemesanan')); 
+                  echo $query->num_rows(); 
                 ?>
               </span>
             </div>
@@ -56,7 +57,8 @@
               <span class="info-box-text">Dalam Pengiriman</span>
               <span class="info-box-number">
                 <?php 
-                  $query = $this->db->get_where('transaksi', array('status' => 'Dalam Pengiriman')); echo $query->num_rows(); 
+                  $query = $this->db->get_where('transaksi', array('status' => 'Dalam Pengiriman')); 
+                  echo $query->num_rows(); 
                 ?>
               </span>
             </div>
@@ -77,7 +79,8 @@
               <span class="info-box-text">Barang Diterima</span>
               <span class="info-box-number">
                 <?php 
-                  $query = $this->db->get_where('transaksi', array('status' => 'Barang Diterima')); echo $query->num_rows(); 
+                  $query = $this->db->get_where('transaksi', array('status' => 'Barang Diterima')); 
+                  echo $query->num_rows(); 
                 ?>
               </span>
             </div>
@@ -91,35 +94,17 @@
 
       <!-- Main row -->
       <div class="row">
-        <!-- Left col -->
         <div class="col-md-12">
-        <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">Line Chart</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <div class="box-body chart-responsive">
-              <div class="chart" id="line-chart" style="height: 300px;"></div>
-            </div>
-        </div>
-
-        <div class="col-md-12">
-        <div class="box box-danger box-solid">
+          <div class="box box-danger box-solid">
             <div class="box-header">
                 <h3 class="box-title">Daftar Produk</h3> 
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
               <?php
-                if($this->session->flashdata('success'))
-                {
+                if($this->session->flashdata('success')):
                   echo '<p class="alert alert-success">' . $this->session->flashdata('success') . '</p>';
-                }
+                endif;
               ?>
                 <table id="example1" class="table table-bordered table-striped table-hover">
                     <thead>
@@ -135,7 +120,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php $no = 1; foreach($data as $row) { ?>
+                      <?php $no = 1; foreach($data as $row): ?>
                         <tr>
                           <td> <?php echo $no++; ?> </td>
                           <td> <?php echo $row['nama_produk'] ?> </td>
@@ -154,15 +139,14 @@
                             if($row['status'] == 'Barang Diterima'):
                               echo '<label class="label label-success">'.$row['status'].'</label>';
                             endif;
-                            ?>
-                            
+                            ?>  
                           </td>
                           <td> 
                             <a href="<?php echo base_url('admin/penjualan/lihat/').$row['id']; ?>" class="label label-primary"><i class="fa fa-eye" aria-hidden="true"></i></a> 
                             <a href="<?php echo base_url('admin/penjualan/edit/').$row['id']; ?>" class="label label-success"><i class="fa fa-edit" aria-hidden="true"></i></a> 
                           </td>
                         </tr>
-                    <?php } ?>
+                      <?php endforeach; ?>
                     </tbody>
                     <tfoot>
                         <tr>

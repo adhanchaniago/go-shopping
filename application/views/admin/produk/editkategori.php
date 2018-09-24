@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AdminLTE 2 | Dashboard</title>
+  <title><?php echo SITE_NAME .": ". ucfirst($this->uri->segment(1)) ." - ". ucfirst($this->uri->segment(2)) ?></title>
   <?php $this->load->view('admin/library/head'); ?>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">

@@ -31,6 +31,48 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/produk/lihatproduk', $data);
 	}
 
+	public function user()
+	{
+		$data = $this->Admin_model->get('user');
+		$data = array('data' => $data);
+		$this->load->view('admin/user/index', $data);
+	}
+
+	public function tambahuser()
+	{
+		$this->load->view('admin/user/tambah');
+	}
+
+	public function prosestambahuser()
+	{
+		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[5]|max_length[12]|alpha|is_unique[user.username]|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|valid_emails|xss_clean');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]|alpha_numeric|xss_clean');
+		$this->form_validation->set_message('required', 'Mohon Maaf! Kolom <b>%s</b> Tidak Boleh Kosong');
+		$this->form_validation->set_message('min_length', 'Mohon Maaf! <b>%s</b> Minimal 5 Karakter');
+		$this->form_validation->set_message('is_unique', 'Mohon Maaf! <b>%s</b> Telah Digunakan. Silahkan menggunakan <b>%s</b> Lainnya.');
+		$this->form_validation->set_message('alpha', 'Mohon Maaf! <b>%s</b> Tidak Mengandung Nama Asli');
+		$this->form_validation->set_message('valid_email', 'Mohon Maaf! <b>%s</b> Tidak Asli');
+		$this->form_validation->set_message('valid_emails', 'Mohon Maaf! <b>%s</b> Tidak Asli');
+
+		if($this->form_validation->run() == FALSE)
+		{
+			$this->load->view('admin/user/tambah');
+		}
+		else
+		{
+			$data = array(
+				'username' => $this->input->post('username'),
+				'email' => $this->input->post('email'),
+				'password' => md5($this->input->post('password')),
+				'level' => $this->input->post('level'),
+			);
+			$insert = $this->Admin_model->Insert('user', $data);
+			$this->session->set_flashdata('success', 'Berhasil Menambahkan '. $this->input->post('username') .'');
+			redirect(base_url('admin/user/tambah'));
+		}
+	}
+
 	public function tambah()
 	{
 		$this->load->view('admin/produk/tambahproduk');
@@ -216,7 +258,7 @@ class Admin extends CI_Controller {
 	{
 		$id = array('id' => $id);
 		$this->Admin_model->Delete('kategori', $id);
-		$this->session->set_flashdata('sukses-hapus', 'Berhasil Menghapus Kategori');
+		$this->session->set_flashdata('sukses-hapus', 'Berhasil Menghapus Kategori(');
 		redirect(base_url('admin/produk/kategori'));
 	}
 
@@ -225,6 +267,14 @@ class Admin extends CI_Controller {
 		$data = $this->Admin_model->get('transaksi');
 		$data = array('data' => $data);
 		$this->load->view('admin/laporan/penjualan', $data);
+	}
+	
+	public function viewpenjualan($id)
+	{
+		$where = array('id' => $id);
+		$data = $this->Admin_model->GetWhere('transaksi', $where);
+		$data = array('data' => $data);
+		$this->load->view('admin/laporan/viewpenjualan', $data);
 	}
 
 	public function editpenjualan($id)
@@ -266,10 +316,4 @@ class Admin extends CI_Controller {
 		$diff=date_diff($date2,$date1);//OP: +272 days 
 		echo $diff->format('%R%a days');
 	}
-
-	public function chart()
-	{
-		$this->load->view('admin/laporan/chart');
-	}
-
 }

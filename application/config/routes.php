@@ -10,6 +10,9 @@ $route['login'] = 'auth/login';
 $route['register'] = 'auth/register';
 $route['logout'] = 'auth/logout';
 
+// USER
+$route['admin/user/tambah'] = 'admin/tambahuser';
+
 // PRODUK
 $route['admin/produk/tambah'] = 'admin/tambah';
 $route['admin/produk/lihat/(:any)'] = 'admin/lihat/$1';
@@ -20,6 +23,7 @@ $route['admin/produk/editkategori/(:any)'] = 'admin/editkategori/$1';
 
 // PENJUALAN
 $route['admin/penjualan/edit/(:any)'] = 'admin/editpenjualan/$1';
+$route['admin/penjualan/lihat/(:any)'] = 'admin/viewpenjualan/$1';
 
 // HOME
 $route['post/(:any)'] = 'pembeli/post/$1';

@@ -37,6 +37,17 @@ class Admin_model extends CI_Model{
         return $res->result_array();
     }
 
+    public function detailPenjualan($where)
+    {
+        // $this->db->from('transaksi');
+        // $this->db->where('transaksi.id', $where);
+        // $this->db->join('provinces', 'provinces.id = transaksi.provinsi');
+        // $this->db->join('regencies', 'regencies.id = transaksi.kota_kabupaten');
+        // // $query = $this->db->get_where('transaksi', $where);
+        // $query = $this->db->get();
+        // return $query->result_array();
+    }
+
     
 }
 
