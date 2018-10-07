@@ -20,7 +20,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <a href="<?php echo base_url('admin/produk'); ?>" class="btn btn-primary">Kembali</a>
+        <a href="<?php echo base_url('admin/user'); ?>" class="btn btn-primary">Kembali</a>
       </h1>
       <ol class="breadcrumb" style="padding: 0;">
         <li></li>
@@ -39,7 +39,7 @@
         <div class="col-md-12">
         <div class="box box-danger box-solid">
             <div class="box-header">
-                <h3 class="box-title">Edit Produk</h3> 
+                <h3 class="box-title">Edit User</h3> 
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -47,52 +47,44 @@
               if($this->session->flashdata('success')):
                 echo '<div class="alert alert-success">'. $this->session->flashdata('success') .'</div>';
               endif;
+
               if($this->session->flashdata('error')):
                 echo '<div class="alert alert-danger">'. $this->session->flashdata('error') .'</div>';
               endif;
               ?>
-              <div class="col-md-8">
-                <?php echo form_open("admin/prosesupdateproduk"); ?>
-                  <input type="text" name="id" value="<?php echo $id; ?>" hidden>
+              <?php
+              foreach($data as $edit):
+              ?>
+              <div class="col-md-12">
+                <?php echo form_open("admin/prosesedituser"); ?>
+                <input type="text" name="id" value="<?php echo $edit['id']; ?>" hidden>
                   <div class="form-group">
-                    <label>Nama Produk</label>
-                    <?php $data = array('type' => 'text', 'class' => 'form-control', 'name' => 'nama_produk', 'value' => set_value('nama_produk', $nama_produk)); echo form_input($data); ?>
-                    <?php echo form_error('nama_produk', '<p class="text-red">', '</p>'); ?>
+                    <label>Username</label>
+                    <?php
+                    $data = array('class' => 'form-control', 'name' => 'username', 'id' => 'username', 'placeholder' => 'Masukkan Username', 'value' => set_value('username', $edit['username']), 'oninvalid' => 'this.setCustomValidity('."'Username Tidak Boleh Kosong'".')', 'oninput' => 'setCustomValidity('."''".')', 'required' => 'true');
+                    echo form_input($data);
+                    echo form_error('username', '<p class="text-red">', '</p>'); 
+                    ?>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label>Email</label>
+                    <?php
+                    $data = array('type' => 'email', 'class' => 'form-control', 'name' => 'email', 'id' => 'email', 'placeholder' => 'Masukkan Email', 'value' => set_value('email', $edit['email']), 'oninvalid' => 'this.setCustomValidity('."'Email Tidak Boleh Kosong'".')', 'oninput' => 'setCustomValidity('."''".')', 'required' => 'true');
+                    echo form_input($data);
+                    echo form_error('email', '<p class="text-red">', '</p>'); 
+                    ?>
                   </div>
 
                   <div class="form-group">
-                    <label>Harga</label>
-                    <?php $data = array('type' => 'text', 'class' => 'form-control', 'name' => 'harga', 'value' => set_value('harga', $harga)); echo form_input($data); ?>
-                    <?php echo form_error('harga', '<p class="text-red">', '</p>'); ?>
-                  </div>
-
-                  <div class="form-group">
-                    <label>Deskripsi</label>
-                    <textarea id="editor1" name="deskripsi" rows="10" cols="80">
-                      <?php echo $deskripsi; ?>
-                    </textarea>
-                    <?php echo form_error('deskripsi', '<p class="text-red">', '</p>'); ?>
+                    <label>Level</label>
+                    <select name="level" class="form-control">
+                      <option value="Admin" <?php echo set_select('status', 'Admin', ($edit['level'] == 'Admin')); ?> >Admin</option>
+                      <option value="Pembeli" <?php echo set_select('status', 'Pembeli', ($edit['level'] == 'Pembeli')); ?> >Pembeli</option>
+                    </select>
                   </div>
               </div>
-              
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label>Kategori</label>
-                  <select class="form-control select2" name="kategori">
-                  <?php $kat = $this->db->get('kategori'); $kat=$kat->result_array(); foreach($kat as $row) { ?>
-                    <option value="<?php echo $row['kategori']; ?>" <?php echo set_select('kategori', $row['kategori'], ($row['kategori'] == $kategori)? true : false ); ?>><?php echo $row['kategori']; ?></option>
-                  <?php } ?>
-                  </select>
-                  <?php echo form_error('kategori', '<p class="text-red">', '</p>'); ?>
-                </div>
-
-                <div class="form-group">
-                  <label>Stok</label>
-                  <?php $data = array('type' => 'number', 'class' => 'form-control', 'name' => 'qty', 'value' => set_value('qty', $qty)); echo form_input($data); ?>
-                  <?php echo form_error('stok', '<p class="text-red">', '</p>'); ?>
-                </div>
-
-              </div>
+              <?php endforeach; ?>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
@@ -100,7 +92,6 @@
               <?php echo form_reset('reset', 'Reset', array('class' => 'btn btn-danger')); ?>
             </div>
             <?php echo form_close(); ?>
-            <?php  ?>
           </div>
         </div>
         <!-- /.col -->
@@ -134,11 +125,6 @@
     //Initialize Select2 Elements
     $('.select2').select2()
   })
-</script>
-<script>
-$("#upfile1").click(function () {
-    $("#file1").trigger('click');
-});
 </script>
 
 </body>

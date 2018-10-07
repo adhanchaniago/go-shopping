@@ -35,7 +35,7 @@
         <div class="col-md-12">
           <div class="box box-danger box-solid">
             <div class="box-header">
-              <h3 class="box-title">Detail Transaksi</h3>
+              <h3 class="box-title">Detail Penjualan</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -64,14 +64,11 @@
                   <td>Provinsi</td>
                   <td>
                     <?php
-                    $this->db->select('name');
                     $this->db->from('provinces');
-                    $this->db->where('transaksi.provinsi', $data[0]['provinsi']);
-                    $this->db->join('transaksi', 'transaksi.provinsi = provinces.id');
+                    $this->db->where('id', $data[0]['provinsi']);
                     $provinsi = $this->db->get();
                     $provinsi = $provinsi->result_array();
                     echo $provinsi[0]['name'];
-                    // $data[0]['provinsi'];
                     ?>
                   </td>
                 </tr>
@@ -79,10 +76,8 @@
                   <td>Kota / Kabupaten</td>
                   <td>
                     <?php
-                    $this->db->select('name');
                     $this->db->from('regencies');
-                    $this->db->where('transaksi.kota_kabupaten', $data[0]['kota_kabupaten']);
-                    $this->db->join('transaksi', 'transaksi.kota_kabupaten = regencies.id');
+                    $this->db->where('id', $data[0]['kota_kabupaten']);
                     $kotakab = $this->db->get();
                     $kotakab = $kotakab->result_array();
                     echo $kotakab[0]['name'];
@@ -94,10 +89,8 @@
                   <td>Kecamatan</td>
                   <td>
                     <?php
-                    $this->db->select('name');
                     $this->db->from('districts');
-                    $this->db->where('transaksi.kecamatan', $data[0]['kecamatan']);
-                    $this->db->join('transaksi', 'transaksi.kecamatan = districts.id');
+                    $this->db->where('id', $data[0]['kecamatan']);
                     $kec = $this->db->get();
                     $kec = $kec->result_array();
                     echo $kec[0]['name'];

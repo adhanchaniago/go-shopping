@@ -29,7 +29,64 @@
 
     <!-- Main content -->
     <section class="content">
+      <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-user"></i></span>
 
+            <div class="info-box-content">
+              <span class="info-box-text">Jumlah User</span>
+              <span class="info-box-number">
+                <?php 
+                  $query = $this->db->get('user'); 
+                  echo $query->num_rows(); 
+                ?>
+              </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-user"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Pembeli</span>
+              <span class="info-box-number">
+                <?php 
+                  $query = $this->db->get_where('user', array('level' => 'Pembeli')); 
+                  echo $query->num_rows(); 
+                ?>
+              </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-red"><i class="fa fa-user"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Admin</span>
+              <span class="info-box-number">
+                <?php 
+                  $query = $this->db->get_where('user', array('level' => 'Admin')); 
+                  echo $query->num_rows(); 
+                ?>
+              </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+      </div>
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
@@ -78,7 +135,7 @@
                             ?>
                           </td>
                           <td> 
-                            <a href="<?php echo base_url('admin/user/edituser/').$row['id']; ?>" class="label label-success"><i class="fa fa-fw fa-edit"></i></a>
+                            <a href="<?php echo base_url('admin/user/edit/').$row['id']; ?>" class="label label-success"><i class="fa fa-fw fa-edit"></i></a>
                             <a href="<?php echo base_url('admin/user/hapususer/').$row['id']; ?>" class="label label-danger"><i class="fa fa-fw fa-close"></i></a>
                           </td>
                         </tr>

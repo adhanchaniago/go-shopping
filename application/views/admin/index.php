@@ -88,7 +88,7 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer clearfix">
-              <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">Lihat Semua</a>
+              <a href="<?php echo base_url('admin/user'); ?>" class="btn btn-sm btn-default btn-flat pull-right">Lihat Semua</a>
             </div>
             <!-- /.box-footer -->
           </div>
@@ -143,7 +143,7 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer clearfix">
-              <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">Lihat Semua</a>
+              <a href="<?php echo base_url('admin/produk'); ?>" class="btn btn-sm btn-default btn-flat pull-right">Lihat Semua</a>
             </div>
             <!-- /.box-footer -->
           </div>
@@ -202,7 +202,7 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer clearfix">
-              <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">Lihat Semua</a>
+              <a href="<?php echo base_url('admin/penjualan'); ?>" class="btn btn-sm btn-default btn-flat pull-right">Lihat Semua</a>
             </div>
             <!-- /.box-footer -->
           </div>
@@ -251,7 +251,7 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer clearfix">
-              <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">Lihat Semua</a>
+              <a href="<?php echo base_url('admin/produk/kategori'); ?>" class="btn btn-sm btn-default btn-flat pull-right">Lihat Semua</a>
             </div>
             <!-- /.box-footer -->
           </div>

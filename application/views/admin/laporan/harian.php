@@ -20,7 +20,9 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <a href="<?php echo base_url('admin/penjualan/harian'); ?>" class="btn btn-primary">Hari Ini</a>
+        <a href="<?php echo base_url('admin/penjualan'); ?>" class="btn btn-primary">Kembali</a>
+        <a href="<?php echo base_url('admin/penjualan'); ?>" class="btn btn-success">Export Excel</a>
+        <a href="<?php echo base_url('admin/penjualan'); ?>" class="btn btn-danger">Export PDF</a>
       </h1>
       <ol class="breadcrumb" style="padding: 0;">
         <li></li>
@@ -39,8 +41,9 @@
               <span class="info-box-text">Dalam Pemesanan</span>
               <span class="info-box-number">
                 <?php 
-                  $query = $this->db->get_where('transaksi', array('status' => 'Dalam Pemesanan')); 
-                  echo $query->num_rows(); 
+                    $today = date('Y-m-d');
+                    $query = $this->db->get_where('transaksi', array('tanggal' => $today, 'status' => 'Dalam Pemesanan')); 
+                    echo $query->num_rows(); 
                 ?>
               </span>
             </div>
@@ -57,7 +60,7 @@
               <span class="info-box-text">Dalam Pengiriman</span>
               <span class="info-box-number">
                 <?php 
-                  $query = $this->db->get_where('transaksi', array('status' => 'Dalam Pengiriman')); 
+                  $query = $this->db->get_where('transaksi', array('tanggal' => $today, 'status' => 'Dalam Pengiriman')); 
                   echo $query->num_rows(); 
                 ?>
               </span>
@@ -79,8 +82,8 @@
               <span class="info-box-text">Barang Diterima</span>
               <span class="info-box-number">
                 <?php 
-                  $query = $this->db->get_where('transaksi', array('status' => 'Barang Diterima')); 
-                  echo $query->num_rows(); 
+                  $query = $this->db->get_where('transaksi', array('tanggal' => $today, 'status' => 'Barang Diterima')); 
+                  echo $query->num_rows();
                 ?>
               </span>
             </div>
@@ -97,7 +100,7 @@
         <div class="col-md-12">
           <div class="box box-danger box-solid">
             <div class="box-header">
-                <h3 class="box-title">Daftar Penjualan</h3> 
+                <h3 class="box-title">Daftar Penjualan Harian per <b><?php $new = date('d-m-Y', strtotime($today)); echo $new; ?></b></h3> 
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">

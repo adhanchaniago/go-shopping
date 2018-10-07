@@ -12,9 +12,10 @@ $route['logout'] = 'auth/logout';
 
 // USER
 $route['admin/user/tambah'] = 'admin/tambahuser';
+$route['admin/user/edit/(:any)'] = 'admin/edituser/$1';
 
 // PRODUK
-$route['admin/produk/tambah'] = 'admin/tambah';
+$route['admin/produk/tambah'] = 'admin/tambahproduk';
 $route['admin/produk/lihat/(:any)'] = 'admin/lihat/$1';
 $route['admin/produk/edit/(:any)'] = 'admin/edit/$1';
 $route['admin/produk/hapus/(:any)'] = 'admin/hapus/$1';
@@ -24,6 +25,7 @@ $route['admin/produk/editkategori/(:any)'] = 'admin/editkategori/$1';
 // PENJUALAN
 $route['admin/penjualan/edit/(:any)'] = 'admin/editpenjualan/$1';
 $route['admin/penjualan/lihat/(:any)'] = 'admin/viewpenjualan/$1';
+$route['admin/penjualan/harian'] = 'admin/penjualanharian';
 
 // HOME
 $route['post/(:any)'] = 'pembeli/post/$1';

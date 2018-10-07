@@ -27,7 +27,7 @@
           </li>
           <!-- Control Sidebar Toggle Button -->
           <li>
-            <a href="<?php echo base_url('logout'); ?>" data-toggle="control-sidebar"><i class="fa fa-sign-out"></i></a>
+            <a href="<?php echo base_url('logout'); ?>"><i class="fa fa-sign-out"></i></a>
           </li>
         </ul>
       </div>

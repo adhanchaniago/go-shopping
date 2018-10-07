@@ -38,8 +38,6 @@
         <li class="<?php if ( $this->uri->uri_string() == 'admin/penjualan' ){ echo 'active'; } ?>"><a href="<?php echo base_url('admin/penjualan'); ?>"><i class="fa fa-circle-o"></i> Penjualan</a></li>
       </ul>
     </li>
-    
-    <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
   </ul>
   
 </section>

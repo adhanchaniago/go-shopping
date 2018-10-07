@@ -59,8 +59,8 @@
                     <?php
                     $data = array('class' => 'form-control', 'name' => 'username', 'id' => 'username', 'placeholder' => 'Masukkan Username', 'value' => set_value('username'), 'oninvalid' => 'this.setCustomValidity('."'Username Tidak Boleh Kosong'".')', 'oninput' => 'setCustomValidity('."''".')', 'required' => 'true');
                     echo form_input($data);
+                    echo form_error('username', '<p class="text-red">', '</p>'); 
                     ?>
-                    <?php echo form_error('username', '<p class="text-red">', '</p>'); ?>
                   </div>
                   
                   <div class="form-group">
@@ -68,8 +68,8 @@
                     <?php
                     $data = array('type' => 'email', 'class' => 'form-control', 'name' => 'email', 'id' => 'email', 'placeholder' => 'Masukkan Email', 'value' => set_value('email'), 'oninvalid' => 'this.setCustomValidity('."'Email Tidak Boleh Kosong'".')', 'oninput' => 'setCustomValidity('."''".')', 'required' => 'true');
                     echo form_input($data);
+                    echo form_error('email', '<p class="text-red">', '</p>'); 
                     ?>
-                    <?php echo form_error('email', '<p class="text-red">', '</p>'); ?>
                   </div>
 
                   <div class="form-group">
@@ -77,8 +77,8 @@
                     <?php
                     $data = array('type' => 'password', 'class' => 'form-control', 'name' => 'password', 'id' => 'password', 'placeholder' => 'Masukkan Password', 'value' => set_value('password'), 'oninvalid' => 'this.setCustomValidity('."'Password Tidak Boleh Kosong'".')', 'oninput' => 'setCustomValidity('."''".')','required' => 'true');
                     echo form_input($data);
+                    echo form_error('password', '<p class="text-red">', '</p>'); 
                     ?>
-                    <?php echo form_error('password', '<p class="text-red">', '</p>'); ?>
                   </div>
 
                   <div class="form-group">

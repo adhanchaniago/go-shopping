@@ -13,45 +13,79 @@ class Admin extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('admin/index');
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$this->load->view('admin/index');
+		}
 	}
 
 	public function produk()
 	{
-		$data = $this->Admin_model->get('produk');
-		$data = array('data' => $data);
-		$this->load->view('admin/produk/data', $data);
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$data = $this->Admin_model->get('produk');
+			$data = array('data' => $data);
+			$this->load->view('admin/produk/data', $data);
+		}
 	}
 
 	public function lihat($slug)
 	{
-		$where = array('slug_nama_produk' => $slug);
-		$data = $this->Admin_model->GetWhere('produk', $where);
-		$data = array('data' => $data);
-		$this->load->view('admin/produk/lihatproduk', $data);
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$where = array('slug_nama_produk' => $slug);
+			$data = $this->Admin_model->GetWhere('produk', $where);
+			$data = array('data' => $data);
+			$this->load->view('admin/produk/lihatproduk', $data);
+		}
 	}
 
 	public function user()
 	{
-		$data = $this->Admin_model->get('user');
-		$data = array('data' => $data);
-		$this->load->view('admin/user/index', $data);
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$data = $this->Admin_model->get('user');
+			$data = array('data' => $data);
+			$this->load->view('admin/user/index', $data);
+		}
 	}
 
 	public function tambahuser()
 	{
-		$this->load->view('admin/user/tambah');
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$this->load->view('admin/user/tambah');
+		}
 	}
 
 	public function prosestambahuser()
 	{
-		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[5]|max_length[12]|alpha|is_unique[user.username]|xss_clean');
+		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[5]|max_length[12]|is_unique[user.username]|xss_clean');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|valid_emails|xss_clean');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]|alpha_numeric|xss_clean');
 		$this->form_validation->set_message('required', 'Mohon Maaf! Kolom <b>%s</b> Tidak Boleh Kosong');
-		$this->form_validation->set_message('min_length', 'Mohon Maaf! <b>%s</b> Minimal 5 Karakter');
+		$this->form_validation->set_message('min_length', 'Mohon Maaf! <b>%s</b> Minimal <b>%s</b> Karakter');
 		$this->form_validation->set_message('is_unique', 'Mohon Maaf! <b>%s</b> Telah Digunakan. Silahkan menggunakan <b>%s</b> Lainnya.');
-		$this->form_validation->set_message('alpha', 'Mohon Maaf! <b>%s</b> Tidak Mengandung Nama Asli');
 		$this->form_validation->set_message('valid_email', 'Mohon Maaf! <b>%s</b> Tidak Asli');
 		$this->form_validation->set_message('valid_emails', 'Mohon Maaf! <b>%s</b> Tidak Asli');
 
@@ -67,15 +101,67 @@ class Admin extends CI_Controller {
 				'password' => md5($this->input->post('password')),
 				'level' => $this->input->post('level'),
 			);
-			$insert = $this->Admin_model->Insert('user', $data);
+			$this->Admin_model->Insert('user', $data);
 			$this->session->set_flashdata('success', 'Berhasil Menambahkan '. $this->input->post('username') .'');
 			redirect(base_url('admin/user/tambah'));
 		}
 	}
 
-	public function tambah()
+	public function edituser($id)
 	{
-		$this->load->view('admin/produk/tambahproduk');
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$where = array('id' => $id);
+			$data = $this->Admin_model->GetWhere('user', $where);
+			$data = array('data' => $data);
+			$this->load->view('admin/user/edituser', $data);
+		}
+	}
+
+	public function prosesedituser()
+	{
+		$this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[5]|max_length[12]|xss_clean');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|valid_emails|xss_clean');
+		$this->form_validation->set_message('required', 'Mohon Maaf! Kolom <b>%s</b> Tidak Boleh Kosong');
+		$this->form_validation->set_message('min_length', 'Mohon Maaf! <b>%s</b> Minimal <b>%s</b> Karakter');
+		$this->form_validation->set_message('valid_email', 'Mohon Maaf! <b>%s</b> Tidak Asli');
+		$this->form_validation->set_message('valid_emails', 'Mohon Maaf! <b>%s</b> Tidak Asli');
+
+		if($this->form_validation->run() == FALSE)
+		{
+			$where = array('id' => $this->input->post('id'));
+			$data = $this->Admin_model->GetWhere('user', $where);
+			$data = array('data' => $data);
+			$this->load->view('admin/user/edituser', $data);
+		}
+		else
+		{
+			$where = array('id' => $this->input->post('id'));
+			$data = array(
+				'username' => $this->input->post('username'),
+				'email' => $this->input->post('email'),
+				'level' => $this->input->post('level'),
+			);
+			$this->Admin_model->Update('user', $data, $where);
+			$this->session->set_flashdata('success', 'Berhasil Mengubah '. $this->input->post('username') .'');
+			redirect(base_url('admin/user/index'));
+		}
+	}
+
+	public function tambahproduk()
+	{
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$this->load->view('admin/produk/tambahproduk');
+		}
 	}
 
 	public function prosestambahproduk()
@@ -90,7 +176,6 @@ class Admin extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE)
 		{
-			//$this->session->set_flashdata('error', validation_errors());
 			$this->load->view('admin/produk/tambahproduk');
 		}
 		else
@@ -134,18 +219,25 @@ class Admin extends CI_Controller {
 
 	public function edit($slug)
 	{
-		$where = array('slug_nama_produk' => $slug);
-		$data = $this->Admin_model->GetWhere('produk', $where);
-		$data = array(
-			'id' => $data[0]['id'],
-			'nama_file' => $data[0]['nama_file'],
-			'nama_produk' => $data[0]['nama_produk'],
-			'harga' => $data[0]['harga'],
-			'kategori' => $data[0]['kategori'],
-			'deskripsi' => $data[0]['deskripsi'],
-			'qty' => $data[0]['qty'],
-		);
-		$this->load->view('admin/produk/editproduk', $data);
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$where = array('slug_nama_produk' => $slug);
+			$data = $this->Admin_model->GetWhere('produk', $where);
+			$data = array(
+				'id' => $data[0]['id'],
+				'nama_file' => $data[0]['nama_file'],
+				'nama_produk' => $data[0]['nama_produk'],
+				'harga' => $data[0]['harga'],
+				'kategori' => $data[0]['kategori'],
+				'deskripsi' => $data[0]['deskripsi'],
+				'qty' => $data[0]['qty'],
+			);
+			$this->load->view('admin/produk/editproduk', $data);
+		}
 	}
 
 	public function prosesupdateproduk()
@@ -185,17 +277,31 @@ class Admin extends CI_Controller {
 
 	public function hapus($slug)
 	{
-		$slug = array('slug_nama_produk' => $slug);
-		$this->Admin_model->Delete('produk', $slug);
-		$this->session->set_flashdata('success', 'Berhasil Menghapus Produk');
-		redirect(base_url('admin/produk'));
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$slug = array('slug_nama_produk' => $slug);
+			$this->Admin_model->Delete('produk', $slug);
+			$this->session->set_flashdata('success', 'Berhasil Menghapus Produk');
+			redirect(base_url('admin/produk'));
+		}
 	}
 
 	public function kategori()
 	{
-		$data = $this->Admin_model->get('kategori');
-		$data = array('data' => $data);
-		$this->load->view('admin/produk/kategori', $data);
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$data = $this->Admin_model->get('kategori');
+			$data = array('data' => $data);
+			$this->load->view('admin/produk/kategori', $data);
+		}
 	}
 
 	public function prosestambahkategori()
@@ -223,13 +329,20 @@ class Admin extends CI_Controller {
 
 	public function editkategori($id)
 	{
-		$where = array('id' => $id);
-		$data = $this->Admin_model->GetWhere('kategori', $where);
-		$data = array(
-			'id' => $data[0]['id'],
-			'kategori' => $data[0]['kategori'],
-		);
-		$this->load->view('admin/produk/editkategori', $data);
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$where = array('id' => $id);
+			$data = $this->Admin_model->GetWhere('kategori', $where);
+			$data = array(
+				'id' => $data[0]['id'],
+				'kategori' => $data[0]['kategori'],
+			);
+			$this->load->view('admin/produk/editkategori', $data);
+		}
 	}
 
 	public function prosesupdatekategori()
@@ -256,36 +369,64 @@ class Admin extends CI_Controller {
 
 	public function hapuskategori($id)
 	{
-		$id = array('id' => $id);
-		$this->Admin_model->Delete('kategori', $id);
-		$this->session->set_flashdata('sukses-hapus', 'Berhasil Menghapus Kategori(');
-		redirect(base_url('admin/produk/kategori'));
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$id = array('id' => $id);
+			$this->Admin_model->Delete('kategori', $id);
+			$this->session->set_flashdata('sukses-hapus', 'Berhasil Menghapus Kategori(');
+			redirect(base_url('admin/produk/kategori'));
+		}
 	}
 
 	public function penjualan()
 	{
-		$data = $this->Admin_model->get('transaksi');
-		$data = array('data' => $data);
-		$this->load->view('admin/laporan/penjualan', $data);
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$data = $this->Admin_model->get('transaksi');
+			$data = array('data' => $data);
+			$this->load->view('admin/laporan/penjualan', $data);
+		}
 	}
 	
 	public function viewpenjualan($id)
 	{
-		$where = array('id' => $id);
-		$data = $this->Admin_model->GetWhere('transaksi', $where);
-		$data = array('data' => $data);
-		$this->load->view('admin/laporan/viewpenjualan', $data);
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$where = array('id' => $id);
+			$data = $this->Admin_model->GetWhere('transaksi', $where);
+			$data = array('data' => $data);
+			$this->load->view('admin/laporan/viewpenjualan', $data);
+		}
 	}
 
 	public function editpenjualan($id)
 	{
-		$where = array('id' => $id);
-		$data = $this->Admin_model->GetWhere('transaksi', $where);
-		$data = array(
-			'id' => $data[0]['id'],
-			'status' => $data[0]['status'],
-		);
-		$this->load->view('admin/laporan/editpenjualan', $data);
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$where = array('id' => $id);
+			$data = $this->Admin_model->GetWhere('transaksi', $where);
+			$data = array(
+				'id' => $data[0]['id'],
+				'status' => $data[0]['status'],
+			);
+			$this->load->view('admin/laporan/editpenjualan', $data);
+		}
 	}
 
 	public function prosesupdatepenjualan()
@@ -309,11 +450,18 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function date()
+	public function penjualanharian()
 	{
-		$date1=date_create("2013-03-15");
-		$date2=date_create("2013-12-12");
-		$diff=date_diff($date2,$date1);//OP: +272 days 
-		echo $diff->format('%R%a days');
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$where = array('tanggal' => date('Y-m-d'));
+			$data = $this->Admin_model->GetWhere('transaksi', $where);
+			$data = array('data' => $data);
+			$this->load->view('admin/laporan/harian', $data);
+		}
 	}
 }
