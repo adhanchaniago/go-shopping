@@ -21,14 +21,20 @@
 <section class="section section-profil">
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 mt-3">
                 <?php $this->load->view('pembeli/library/sidebar'); ?>
             </div>
 
-            <div class="col-md-8">
+            <div class="col-md-8 mt-3">
+                <?php
+                if($this->session->flashdata('sukses'))
+                {
+                    echo '<div class="alert alert-success">'.$this->session->flashdata('sukses').'</div>';
+                }
+                ?>
                 <div class="card">
                     <div class="card-header text-white bg-primary">
-                        Riwayat Belanja
+                        Riwayat Pemesanan
                     </div>
                     <div class="card-body table-responsive">
                         <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -50,7 +56,19 @@
                                         <?php echo number_format($row['total_harga'], 2,'.','.'); ?>
                                     </td>
                                     <td><?php echo $row['tanggal']; ?></td>
-                                    <td><?php echo $row['status']; ?></td>
+                                    <td>
+                                        <?php 
+                                        if($row['status'] == 'Dalam Pemesanan'):
+                                            echo '<badge class="badge badge-primary">'.$row['status'].'</badge>';
+                                        endif;
+                                        if($row['status'] == 'Dalam Pengiriman'):
+                                            echo '<badge class="badge badge-info">'.$row['status'].'</badge>';
+                                        endif;
+                                        if($row['status'] == 'Barang Diterima'):
+                                            echo '<badge class="badge badge-success">'.$row['status'].'</badge>';
+                                        endif;
+                                        ?>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>

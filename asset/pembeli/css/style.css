@@ -37,23 +37,40 @@ body{
 }
 
 /*---------- PRODUK ----------*/
+.section-produk{
+    padding: 75px 0;
+}
+.section-produk h4{
+    text-align: center;
+    padding: 15px 0;
+    font-size: 3em;
+    text-transform: uppercase;
+}
+.section-produk .search{
+    text-align: center;
+    padding: 15px 0;
+    font-size: 1.5em;
+    text-transform: uppercase;
+}
+.section-produk .card{
+    height: 100%;
+}
 .section-produk-terbaru{
     margin: 5px 0 25px;
 }
-
+.section-produk-terbaru .card{
+    height: 100%;
+}
 .section-produk-terbaru .card h5{
     color: #000;
     font-size: 1em;
 }
-
 .section-produk-post{
     margin: 100px 0;
 }
-
 .section-support{
     margin: 15px 0;
 }
-
 .section-support .card{
     padding: 20px;    
 }
@@ -76,7 +93,11 @@ body{
     min-height: 65vh;
 }
 
-.footer{
-    position: relative;
-    z-index: 1;
+/*---------- FOOTER ----------*/
+.footer .bg-primary{
+    padding: 0;
+    height: auto;
+}
+.footer p{
+    margin-bottom: 0;
 }

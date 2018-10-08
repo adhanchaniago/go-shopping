@@ -19,18 +19,39 @@
 <section class="section section-profil">
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 mt-3">
                 <?php $this->load->view('pembeli/library/sidebar'); ?>
             </div>
 
-            <div class="col-md-8">
+            <div class="col-md-8 mt-3">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Halo, <?php echo $this->session->userdata('username'); ?>!</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card text-white bg-success mb-3">
+                                    <div class="card-header"><?php echo $this->db->get_where('transaksi', array('user' => $this->session->userdata('username')))->num_rows(); ?></div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Riwayat Pemesanan</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="card text-white bg-primary mb-3">
+                                    <div class="card-header"><?php echo $this->db->get_where('transaksi', array('user' => $this->session->userdata('username'), 'tanggal' => date('Y-m-d')))->num_rows(); ?></div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Pemesanan Hari Ini</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
+        
     </div>
 </section>
 

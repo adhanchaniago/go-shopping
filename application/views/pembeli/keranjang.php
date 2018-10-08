@@ -72,7 +72,12 @@
             </table>
 
             <a href="<?php echo base_url('/'); ?>" class="btn btn-primary">Kembali Berbelanja</a>
-            <a href="<?php echo base_url('pembayaran'); ?>" class="btn btn-success">Lanjut Pembayaran</a>
+            <?php
+            if($data != NULL)
+            {
+                echo '<a href="<?php echo base_url('.'pembayaran'.'); ?>" class="btn btn-success">Lanjut Pembayaran</a>';
+            }
+            ?>
         </div>
     </div>
 </section>

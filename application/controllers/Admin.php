@@ -458,7 +458,7 @@ class Admin extends CI_Controller {
 		}
 		else 
 		{
-			$where = array('tanggal' => date('Y-m-d'));
+			$where = array('tanggal' => date(NOW()));
 			$data = $this->Admin_model->GetWhere('transaksi', $where);
 			$data = array('data' => $data);
 			$this->load->view('admin/laporan/harian', $data);

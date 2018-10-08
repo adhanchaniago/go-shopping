@@ -37,6 +37,26 @@ class Pembeli_model extends CI_Model{
         return $res->result_array();
     }
 
+    public function dataProduk($number,$offset){
+        $this->db->from('produk');
+        $this->db->order_by('id', 'DESC');
+		return $query = $this->db->get('',$number,$offset)->result_array();		
+    }
+    
+    public function cari($keyword)
+    {
+        $this->db->select('*');
+        $this->db->from('produk');
+        $this->db->like('nama_produk', $keyword);
+        $this->db->or_like('harga', $keyword);
+        $this->db->or_like('kategori', $keyword);
+        return $this->db->get()->result_array();
+    }
+ 
+	public function jumlah_data_produk(){
+		return $this->db->get('produk')->num_rows();
+    }
+
     public function viewByProvinsi($province_id)
     {
         $this->db->where('province_id', $province_id);

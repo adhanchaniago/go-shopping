@@ -8,12 +8,52 @@ class Pembeli extends CI_Controller {
         parent::__construct();
 		$this->load->model('Pembeli_model');
 		$this->load->library('form_validation');
+		$this->load->library('pagination');
     }
 
 	public function index()
 	{
 		$this->load->view('pembeli/index');
 	}
+
+	public function produk()
+	{
+		$jumlah_data = $this->Pembeli_model->jumlah_data_produk();
+		$config['base_url'] = base_url().'pembeli/produk';
+		$config['total_rows'] = $jumlah_data;
+		$config['per_page'] = 8;
+		$config['full_tag_open'] 	= '<div class="pagging text-center"><nav><ul class="pagination">';
+        $config['full_tag_close'] 	= '</ul></nav></div>';
+        $config['num_tag_open'] 	= '<li class="page-item"><span class="page-link">';
+        $config['num_tag_close'] 	= '</span></li>';
+        $config['cur_tag_open'] 	= '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close'] 	= '<span class="sr-only">(current)</span></span></li>';
+        $config['next_tag_open'] 	= '<li class="page-item"><span class="page-link">';
+        $config['next_tagl_close'] 	= '<span aria-hidden="true">&raquo;</span></span></li>';
+        $config['prev_tag_open'] 	= '<li class="page-item"><span class="page-link">';
+        $config['prev_tagl_close'] 	= '</span></li>';
+        $config['first_tag_open'] 	= '<li class="page-item"><span class="page-link">';
+        $config['first_tagl_close'] = '</span></li>';
+        $config['last_tag_open'] 	= '<li class="page-item"><span class="page-link">';
+        $config['last_tagl_close'] 	= '</span></li>';
+ 
+        $config['first_link']='Pertama ';
+        $config['last_link']='Terakhir';
+        $config['next_link']='>';
+        $config['prev_link']='<';
+		$from = $this->uri->segment(3);
+		$this->pagination->initialize($config);		
+		$data['data'] = $this->Pembeli_model->dataProduk($config['per_page'],$from);
+		$this->load->view('pembeli/produk', $data);
+	}
+
+	public function search()
+    {
+        $keyword = $this->input->post('keyword');
+        $data = $this->Pembeli_model->cari($keyword);
+        $data = array('data' => $data);
+        $this->load->view('pembeli/search', $data);
+    }
 
 	public function post($slug)
 	{
@@ -141,6 +181,7 @@ class Pembeli extends CI_Controller {
 
 	public function pembayaran()
 	{
+		
 		$this->load->view('pembeli/pembayaran');
 	}
 
@@ -208,17 +249,8 @@ class Pembeli extends CI_Controller {
 
 			$data = $this->db->insert_batch('transaksi', $result);
 			$this->db->Delete('keranjang', array('user' => $this->session->userdata('username')));
-
-			if($data)
-			{
-				$this->session->set_flashdata('sukses', 'Terima kasih sudah melakukan pembayaran.');
-				redirect(base_url('profil'));
-			}
-			else
-			{
-				$this->session->set_flashdata('sukses', 'Terima kasih sudah melakukan pembayaran.');
-				redirect(base_url('pembayaran'));
-			}
+			$this->session->set_flashdata('sukses', 'Terima kasih sudah melakukan pembayaran.');
+			redirect(base_url('riwayat'));
 		}
 	}
 
@@ -231,39 +263,33 @@ class Pembeli extends CI_Controller {
 
 	public function listkota()
 	{
-		// Ambil data ID Provinsi yang dikirim via ajax post
 		$province_id = $this->input->post('province_id');
     
 		$kota = $this->Pembeli_model->viewByProvinsi($province_id);
 		
-		// Buat variabel untuk menampung tag-tag option nya
-		// Set defaultnya dengan tag option Pilih
 		$lists = "<option value=''>--- Pilih Kota/Kabupaten---</option>";
 		
 		foreach($kota as $data){
-		  $lists .= "<option value='".$data['id']."'>".$data['name']."</option>"; // Tambahkan tag option ke variabel $lists
+		  $lists .= "<option value='".$data['id']."'>".$data['name']."</option>";
 		}
 		
-		$callback = array('list_kota'=>$lists); // Masukan variabel lists tadi ke dalam array $callback dengan index array : list_kota
-		echo json_encode($callback); // konversi varibael $callback menjadi JSON
+		$callback = array('list_kota'=>$lists); 
+		echo json_encode($callback);
 	}
 
 	public function listkecamatan()
 	{
-		// Ambil data ID Provinsi yang dikirim via ajax post
 		$regency_id = $this->input->post('regency_id');
     
 		$kota = $this->Pembeli_model->viewByKota($regency_id);
 		
-		// Buat variabel untuk menampung tag-tag option nya
-		// Set defaultnya dengan tag option Pilih
 		$lists = "<option value=''>--- Pilih Kecamatan ---</option>";
 		
 		foreach($kota as $data){
-		  $lists .= "<option value='".$data['id']."'>".$data['name']."</option>"; // Tambahkan tag option ke variabel $lists
+		  $lists .= "<option value='".$data['id']."'>".$data['name']."</option>"; 
 		}
 		
-		$callback = array('list_kecamatan'=>$lists); // Masukan variabel lists tadi ke dalam array $callback dengan index array : list_kota
-		echo json_encode($callback); // konversi varibael $callback menjadi JSON
+		$callback = array('list_kecamatan'=>$lists); 
+		echo json_encode($callback);
 	}
 }

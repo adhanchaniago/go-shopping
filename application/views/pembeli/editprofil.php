@@ -19,11 +19,11 @@
 <section class="section section-profil">
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 mt-3">
                 <?php $this->load->view('pembeli/library/sidebar'); ?>
             </div>
 
-            <div class="col-md-8">
+            <div class="col-md-8 mt-3">
                 <div class="card">
                     <div class="card-header text-white bg-primary">
                         Ubah Password

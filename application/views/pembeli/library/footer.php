@@ -1,5 +1,3 @@
-<div class="text-center">
-        <nav class="navbar text-white">
-            2018 GO SHOPPING
-        </nav>
-    </div>
+<div class="bg-primary">
+    <p class="text-center"><?php echo date('Y'); ?> Go-Shop</p>
+</div>

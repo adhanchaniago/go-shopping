@@ -35,3 +35,4 @@ $route['pembayaran'] = 'pembeli/pembayaran';
 $route['profil'] = 'pembeli/profil';
 $route['editprofil'] = 'pembeli/editprofil';
 $route['riwayat'] = 'pembeli/riwayat';
+$route['produk'] = 'pembeli/produk';

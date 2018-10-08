@@ -20,29 +20,31 @@
             </ul>
 
             <ul class="navbar-nav mx-auto">
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-dark my-2 my-sm-0 text-white" type="submit">Search</button>
-                </form>
+                <?php echo form_open('pembeli/search', array('class' => 'form-inline my-2 my-lg-0')); ?>
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" name="keyword" aria-label="Search">
+                    <button class="btn btn-dark my-2 my-sm-0 text-white" type="submit">Search</button>
+                <?php echo form_close(); ?>
             </ul>
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                 <?php
                 $session = $this->session->userdata('username');
+                if(!$session) 
+                {
+                ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo base_url('login'); ?>"><i class='fa fa-user'></i></a>
+                </li>
+                <?php } else { ?>
+                <li class="nav-item">
+                <?php
                 $this->db->from('keranjang');
                 $this->db->where('user', $session);
                 $data = $this->db->get();
                 ?>
                     <a class="nav-link" href='<?php echo base_url('keranjang'); ?>'>Keranjang (<?php echo $data->num_rows(); ?>) </a>
                 </li>
-                <?php
-                if(!$session) {
-                ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo base_url('login'); ?>"><i class='fa fa-user'></i></a>
-                </li>
-                <?php } else { ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?php echo $session; ?>

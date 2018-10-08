@@ -28,7 +28,14 @@
 
 <section class="section section-produk-terbaru">
     <div class="container">
-        <h4>Produk Terbaru</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Produk Terbaru</h4>
+            </div>
+            <div class="col-md-6">
+                <a href="<?php echo base_url('produk'); ?>" class="btn btn-primary pull-right mb-3">Lihat Semua</a>
+            </div>
+        </div>
         <div class="row">
             <?php 
             $this->db->from('produk');
@@ -38,7 +45,7 @@
             $data_produk = $produk->result_array();
             foreach($data_produk as $row) {
             ?>
-                <div class="col-lg-3 mb-3 d-flex">
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-3 d-flex">
                     <a href="<?php echo base_url('post/').$row['slug_nama_produk']; ?>">
                         <div class="card">
                             <img class="card-img-top img-fluid" src="<?php echo base_url('asset/img/produk/').$row['nama_file']; ?>" alt="<?php echo $row['slug_nama_produk']; ?>">
@@ -46,7 +53,6 @@
                                 <h5><?php echo $row['nama_produk']; ?></h5>
                                 <small>Rp. <?php echo number_format($row['harga'], 2,",",".") ; ?></small>
                             </div>
-                            <a href="<?php echo base_url('post/').$row['slug_nama_produk']; ?>" class="btn btn-primary btn-sm">Lihat Produk</a>
                         </div>
                     </a>
                 </div>

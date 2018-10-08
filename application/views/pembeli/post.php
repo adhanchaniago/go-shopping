@@ -22,10 +22,10 @@
             <div class="card-body">
                 <div class="row">
                 <?php foreach($data as $row) { ?>
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-sm-12">
                         <img src="<?php echo base_url('asset/img/produk/').$row['nama_file']; ?>" class="card-img-top" height="500" alt="">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-sm-12">
                         <h3><?php echo $row['nama_produk']; ?></h3>
                         <h5 class="text-danger">Rp. <?php echo number_format($row['harga'], 2,".","."); ?></h5>
                         <hr>
@@ -66,7 +66,7 @@
                             <br>
                             <?php echo form_submit('submit', 'Tambah ke Keranjang', array('class' => 'btn btn-primary')); } ?>
                     </div>
-                <?php } ?>
+                        <?php } ?>
                 </div>
             </div>
         </div>
