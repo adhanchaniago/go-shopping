@@ -8,6 +8,7 @@ class Admin extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Admin_model');
 		$this->load->library('form_validation');
+		$this->load->library('tcpdf');
 		$this->load->helper('url');
 	}
 
@@ -458,10 +459,18 @@ class Admin extends CI_Controller {
 		}
 		else 
 		{
-			$where = array('tanggal' => date(NOW()));
-			$data = $this->Admin_model->GetWhere('transaksi', $where);
+			$today = date('Y-m-d');
+			$data = $this->Admin_model->laporanHarian($today = date('Y-m-d'));
 			$data = array('data' => $data);
 			$this->load->view('admin/laporan/harian', $data);
 		}
+	}
+
+	public function cetak()
+	{
+		$where = array('tanggal' => date('Y-m-d'));
+		$data = $this->Admin_model->GetWhere('transaksi', $where);
+		$data = array('data' => $data);
+		$this->load->view('admin/laporan/cetak', $data);
 	}
 }

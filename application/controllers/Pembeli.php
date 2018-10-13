@@ -249,7 +249,7 @@ class Pembeli extends CI_Controller {
 
 			$data = $this->db->insert_batch('transaksi', $result);
 			$this->db->Delete('keranjang', array('user' => $this->session->userdata('username')));
-			$this->session->set_flashdata('sukses', 'Terima kasih sudah melakukan pembayaran.');
+			$this->session->set_flashdata('sukses', 'Terima kasih sudah melakukan pemesanan.');
 			redirect(base_url('riwayat'));
 		}
 	}

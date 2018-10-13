@@ -35,7 +35,25 @@ class Admin_model extends CI_Model{
     {
         $res=$this->db->get_where($table, $data);
         return $res->result_array();
-    }    
+    }
+
+    public function laporanHarian($today)
+    {
+        $this->db->select('nama_produk, qty, alamat, tanggal, nama_pembeli, total_harga, status, id');
+        $this->db->from('transaksi');
+        $this->db->where('tanggal', $today);
+        $res = $this->db->get();
+        return $res->result_array();
+    }
+
+    public function tes()
+    {
+        $this->db->from('transaksi');
+        $this->db->where('MONTH(tanggal)',date('m'));
+        $this->db->group_by('tanggal');
+        $res = $this->db->get();
+        return $res->result_array();
+    }
 }
 
 

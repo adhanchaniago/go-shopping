@@ -22,7 +22,7 @@
       <h1>
         <a href="<?php echo base_url('admin/penjualan'); ?>" class="btn btn-primary">Kembali</a>
         <a href="<?php echo base_url('admin/penjualan'); ?>" class="btn btn-success">Export Excel</a>
-        <a href="<?php echo base_url('admin/penjualan'); ?>" class="btn btn-danger">Export PDF</a>
+        <a href="<?php echo base_url('admin/cetak'); ?>" class="btn btn-danger">Export PDF</a>
       </h1>
       <ol class="breadcrumb" style="padding: 0;">
         <li></li>
@@ -117,6 +117,7 @@
                           <th>Qty</th>
                           <th>Alamat</th>
                           <th>Tanggal</th>
+                          <th>Harga (Rp)</th>
                           <th>Nama Pembeli</th>
                           <th width="10">Status</th>
                           <th></th>
@@ -130,6 +131,7 @@
                           <td> <?php echo $row['qty']; ?> </td>
                           <td> <?php echo $row['alamat']; ?> </td>
                           <td> <?php echo $row['tanggal']; ?> </td>
+                          <td> <?php echo number_format($row['total_harga'], 2,'.','.') ; ?> </td>
                           <td> <?php echo $row['nama_pembeli']; ?> </td>
                           <td> 
                             <?php

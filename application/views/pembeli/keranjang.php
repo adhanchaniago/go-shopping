@@ -75,7 +75,7 @@
             <?php
             if($data != NULL)
             {
-                echo '<a href="<?php echo base_url('.'pembayaran'.'); ?>" class="btn btn-success">Lanjut Pembayaran</a>';
+                echo '<a href="'.base_url('pembayaran').'" class="btn btn-success">Lanjut Pembayaran</a>';
             }
             ?>
         </div>
