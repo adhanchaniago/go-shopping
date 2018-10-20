@@ -4,7 +4,7 @@
   <title><?php echo SITE_NAME .": ". ucfirst($this->uri->segment(1)) ." - ". ucfirst($this->uri->segment(2)) ?></title>
   <?php $this->load->view('admin/library/head'); ?>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
@@ -63,7 +63,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php $no = 1; foreach($data as $row) { ?>
+                    <?php $no = 1; foreach($data as $row): ?>
                         <tr>
                           <td> <?php echo $no++; ?> </td>
                           <td> <img src="<?php echo base_url('asset/img/produk/').$row['nama_file']; ?>" alt="<?php echo $row['slug_nama_produk']; ?>" width="100" height="100"> </td>
@@ -72,12 +72,21 @@
                           <td> <?php echo $row['kategori']; ?> </td>
                           <td> <?php echo $row['qty']; ?> </td>
                           <td> 
-                            <a href="<?php echo base_url('admin/produk/lihat/').$row['slug_nama_produk']; ?>" class="label label-primary"><i class="fa fa-fw fa-eye"></i></a>
-                            <a href="<?php echo base_url('admin/produk/edit/').$row['slug_nama_produk']; ?>" class="label label-success"><i class="fa fa-fw fa-edit"></i></a>
-                            <a href="<?php echo base_url('admin/produk/hapus/').$row['slug_nama_produk']; ?>" class="label label-danger"><i class="fa fa-fw fa-close"></i></a>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                  Aksi <span class="caret"></span>
+                                  <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                  <li><a href="<?php echo base_url('admin/produk/lihat/').$row['slug_nama_produk']; ?>">Detail</a></li>
+                                  <li><a href="<?php echo base_url('admin/produk/edit/').$row['slug_nama_produk']; ?>">Ubah Data</a></li>
+                                  <li class="divider"></li>
+                                  <li><a href="<?php echo base_url('admin/produk/hapus/').$row['slug_nama_produk']; ?>">Hapus Data</a></li>
+                                </ul>
+                            </div>
                           </td>
                         </tr>
-                    <?php } ?>
+                    <?php endforeach; ?>
                     </tbody>
                     <tfoot>
                         <tr>
@@ -113,14 +122,6 @@
 <script>
   $(function () {
     $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
   })
 </script>
 </body>

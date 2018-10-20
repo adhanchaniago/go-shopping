@@ -101,6 +101,7 @@ class Pembeli extends CI_Controller {
 			$session = $this->session->userdata('username');
 			$nama = $this->input->post('nama_produk');
 			$qty = $this->input->post('qty');
+			$harga = $this->input->post('harga');
 			
 			$cek = $this->db->get_where('keranjang', array('nama_produk' => $nama, 'user' => $session));
 			$cek = $cek->row_array();
@@ -145,7 +146,7 @@ class Pembeli extends CI_Controller {
 					}
 					else
 					{
-						$hasil = $z+$qty; print_r($hasil);
+						$hasil = $z+$qty; 
 						if($hasil > $cek2['qty'])
 						{
 							$this->session->set_flashdata('gagal', 'Gagal Update <b>'. $this->input->post('nama_produk') .'</b> ke dalam Keranjang.'  );
@@ -153,7 +154,7 @@ class Pembeli extends CI_Controller {
 						}
 						else
 						{
-							$query = $this->db->query("UPDATE keranjang SET qty = $z+$qty WHERE nama_produk = '$nama' AND user = '$session' ");
+							$query = $this->db->query("UPDATE keranjang SET qty = $z+$qty, total_harga = $harga+$harga WHERE nama_produk = '$nama' AND user = '$session' ");
 							$this->session->set_flashdata('update', 'Berhasil Update <b>'. $this->input->post('nama_produk') .'</b> ke dalam Keranjang.'  );
 							redirect(base_url('keranjang'));
 						}
@@ -209,7 +210,7 @@ class Pembeli extends CI_Controller {
 				$result[] = array(
 					'nama_produk' => $napro = $this->input->post('nama_produk')[$key],
 					'qty' => $beli = $this->input->post('qty')[$key],
-					'total_harga' => $this->input->post('total_harga')[$key],
+					'total_harga' => $harga = $this->input->post('total_harga')[$key],
 					'nama_pembeli' => $this->input->post('nama_lengkap'),
 					'provinsi' => $this->input->post('provinsi'),
 					'kota_kabupaten' => $this->input->post('kota-kabupaten'),
@@ -222,6 +223,7 @@ class Pembeli extends CI_Controller {
 					'user' => $this->input->post('user')[$key],
 					'status' => 'Dalam Pemesanan',
 				);
+				$total = $total + $harga;
 			}
 
 			$data = $this->input->post();
@@ -235,6 +237,7 @@ class Pembeli extends CI_Controller {
 			{
 				$n = $a->nama_produk;
 				$s[] = $a->qty;
+				
 			}
 
 			for($i = 0; $i < count($data['nama_produk']); $i++)
@@ -244,14 +247,23 @@ class Pembeli extends CI_Controller {
 					'qty' => $s[$i]-$data['qty'][$i],
 				);
 			}
+			
+			
 			$this->db->where_in('nama_produk', $data['nama_produk']);
 			$this->db->update_batch('produk', $update, 'nama_produk');
 
 			$data = $this->db->insert_batch('transaksi', $result);
 			$this->db->Delete('keranjang', array('user' => $this->session->userdata('username')));
 			$this->session->set_flashdata('sukses', 'Terima kasih sudah melakukan pemesanan.');
-			redirect(base_url('riwayat'));
+			$this->session->set_userdata('tagihan', $total);
+			redirect(base_url('transfer'));
+			var_dump($total);
 		}
+	}
+
+	public function transfer()
+	{
+		$this->load->view('pembeli/transfer');
 	}
 
 	public function riwayat()

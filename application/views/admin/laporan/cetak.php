@@ -1,5 +1,6 @@
 <?php
-$today = date('Y-m-d');
+$awal = date('Y-m-d');
+$today = date('d-m-Y', strtotime($awal));
 $pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
 $pdf->SetTitle('Penjualan Harian per '.$today);
 $pdf->SetHeaderMargin(30);
@@ -16,7 +17,6 @@ $html='<h3>Penjualan Harian per '.$today.'</h3>
                 <th width="5%" align="center">No</th>
                 <th width="25%" align="center">Nama Produk</th>
                 <th width="5%" align="center">Qty</th>
-                <th align="center">Alamat</th>
                 <th align="center">Tanggal</th>
                 <th align="center">Pembeli</th>
                 <th align="center">Harga</th>
@@ -28,7 +28,6 @@ foreach ($data as $row)
                 <td align="center">'.$i.'</td>
                 <td>'.$row['nama_produk'].'</td>
                 <td>'.$row['qty'].'</td>
-                <td>'.$row['alamat'].'</td>
                 <td>'.$row['tanggal'].'</td>
                 <td>'.$row['nama_pembeli'].'</td>
                 <td align="right">'.number_format($row['total_harga'],0,",",",").'</td>
@@ -36,5 +35,5 @@ foreach ($data as $row)
     }
 $html.='</table>';
 $pdf->writeHTML($html, true, false, true, false, '');
-$pdf->Output('daftar_produk.pdf', 'I');
+$pdf->Output('Penjualan Harian per '.$today.'.pdf', 'I');
 ?>

@@ -7,9 +7,7 @@ class Admin extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Admin_model');
-		$this->load->library('form_validation');
 		$this->load->library('tcpdf');
-		$this->load->helper('url');
 	}
 
 	public function index()
@@ -21,35 +19,6 @@ class Admin extends CI_Controller {
 		else 
 		{
 			$this->load->view('admin/index');
-		}
-	}
-
-	public function produk()
-	{
-		if($this->session->userdata('level') != 'Admin')
-		{
-			redirect(base_url('login'));
-		}
-		else 
-		{
-			$data = $this->Admin_model->get('produk');
-			$data = array('data' => $data);
-			$this->load->view('admin/produk/data', $data);
-		}
-	}
-
-	public function lihat($slug)
-	{
-		if($this->session->userdata('level') != 'Admin')
-		{
-			redirect(base_url('login'));
-		}
-		else 
-		{
-			$where = array('slug_nama_produk' => $slug);
-			$data = $this->Admin_model->GetWhere('produk', $where);
-			$data = array('data' => $data);
-			$this->load->view('admin/produk/lihatproduk', $data);
 		}
 	}
 
@@ -153,6 +122,92 @@ class Admin extends CI_Controller {
 		}
 	}
 
+	public function editpassword($id)
+	{
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$where = array('id' => $id);
+			$data = $this->Admin_model->GetWhere('user', $where);
+			$data = array('data' => $data);
+			$this->load->view('admin/user/editpassword', $data);
+		}
+	}
+
+	public function proseseditpassword()
+	{
+		$this->form_validation->set_rules('password_baru', 'Password Baru', 'trim|required|min_length[5]|alpha_numeric|xss_clean');
+		$this->form_validation->set_rules('konfirmasi_password_baru', 'Konfirmasi Password', 'trim|required|min_length[5]|alpha_numeric|matches[password_baru]|xss_clean');
+		$this->form_validation->set_message('required', 'Mohon Maaf! Kolom <b>%s</b> Tidak Boleh Kosong');
+		$this->form_validation->set_message('min_length', 'Mohon Maaf! <b>%s</b> Minimal <b>%s</b> Karakter');
+		$this->form_validation->set_message('matches', 'Mohon Maaf! Kolom <b>%s</b> Tidak Sama dengan Kolom Password Baru');
+
+		if($this->form_validation->run() == FALSE)
+		{
+			$where = array('id' => $this->input->post('id'));
+			$data = $this->Admin_model->GetWhere('user', $where);
+			$data = array('data' => $data);
+			$this->load->view('admin/user/editpassword', $data);
+		}
+		else
+		{
+			$where = array('id' => $this->input->post('id'));
+			$data = array(
+				'password' => md5($this->input->post('password_baru')),
+			);
+			$this->Admin_model->Update('user', $data, $where);
+			$this->session->set_flashdata('success', 'Berhasil Mengubah Password');
+			redirect(base_url('admin/user/index'));
+		}
+	}
+
+	public function hapususer($id)
+	{
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$id = array('id' => $id);
+			$this->Admin_model->Delete('user', $id);
+			$this->session->set_flashdata('success', 'Berhasil Menghapus User');
+			redirect(base_url('admin/user'));
+		}
+	}
+
+	public function produk()
+	{
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$data = $this->Admin_model->get('produk');
+			$data = array('data' => $data);
+			$this->load->view('admin/produk/data', $data);
+		}
+	}
+
+	public function lihat($slug)
+	{
+		if($this->session->userdata('level') != 'Admin')
+		{
+			redirect(base_url('login'));
+		}
+		else 
+		{
+			$where = array('slug_nama_produk' => $slug);
+			$data = $this->Admin_model->GetWhere('produk', $where);
+			$data = array('data' => $data);
+			$this->load->view('admin/produk/lihatproduk', $data);
+		}
+	}
+
 	public function tambahproduk()
 	{
 		if($this->session->userdata('level') != 'Admin')
@@ -218,7 +273,7 @@ class Admin extends CI_Controller {
 		}        
 	}
 
-	public function edit($slug)
+	public function editproduk($slug)
 	{
 		if($this->session->userdata('level') != 'Admin')
 		{
@@ -276,7 +331,7 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function hapus($slug)
+	public function hapusproduk($slug)
 	{
 		if($this->session->userdata('level') != 'Admin')
 		{
@@ -459,8 +514,8 @@ class Admin extends CI_Controller {
 		}
 		else 
 		{
-			$today = date('Y-m-d');
-			$data = $this->Admin_model->laporanHarian($today = date('Y-m-d'));
+			$today = array('tanggal' => date('Y-m-d'));
+			$data = $this->Admin_model->GetWhere('transaksi', $today);
 			$data = array('data' => $data);
 			$this->load->view('admin/laporan/harian', $data);
 		}
@@ -468,9 +523,10 @@ class Admin extends CI_Controller {
 
 	public function cetak()
 	{
-		$where = array('tanggal' => date('Y-m-d'));
-		$data = $this->Admin_model->GetWhere('transaksi', $where);
+		$today = date('Y-m-d');
+		$data = $this->Admin_model->cetakLaporanHarianPdf($today);
 		$data = array('data' => $data);
+		var_dump($data);
 		$this->load->view('admin/laporan/cetak', $data);
 	}
 }

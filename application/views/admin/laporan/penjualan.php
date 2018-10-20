@@ -4,7 +4,7 @@
   <title><?php echo SITE_NAME .": ". ucfirst($this->uri->segment(1)) ." - ". ucfirst($this->uri->segment(2)) ?></title>
   <?php $this->load->view('admin/library/head'); ?>  
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
@@ -130,6 +130,9 @@
                           <td> <?php echo $row['nama_pembeli']; ?> </td>
                           <td> 
                             <?php
+                            if($row['status'] == 'Pesanan Gagal'):
+                              echo '<label class="label label-danger">'.$row['status'].'</label>';
+                            endif;
                             if($row['status'] == 'Dalam Pemesanan'):
                               echo '<label class="label label-primary">'.$row['status'].'</label>';
                             endif;
@@ -141,9 +144,19 @@
                             endif;
                             ?>  
                           </td>
-                          <td> 
-                            <a href="<?php echo base_url('admin/penjualan/lihat/').$row['id']; ?>" class="label label-primary"><i class="fa fa-eye" aria-hidden="true"></i></a> 
-                            <a href="<?php echo base_url('admin/penjualan/edit/').$row['id']; ?>" class="label label-success"><i class="fa fa-edit" aria-hidden="true"></i></a> 
+                          <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                  Aksi <span class="caret"></span>
+                                  <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                  <li><a href="<?php echo base_url('admin/penjualan/lihat/').$row['id']; ?>">Detail</a></li>
+                                  <li><a href="<?php echo base_url('admin/penjualan/edit/').$row['id']; ?>">Ubah Data</a></li>
+                                  <li class="divider"></li>
+                                  <li><a href="<?php echo base_url('admin/penjualan/hapus/').$row['id']; ?>">Hapus Data</a></li>
+                                </ul>
+                            </div>
                           </td>
                         </tr>
                       <?php endforeach; ?>

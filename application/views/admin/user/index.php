@@ -4,7 +4,7 @@
   <title><?php echo SITE_NAME .": ". ucfirst($this->uri->segment(1)) ." - ". ucfirst($this->uri->segment(2)) ?></title>
   <?php $this->load->view('admin/library/head'); ?>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
@@ -134,9 +134,19 @@
                             endif;
                             ?>
                           </td>
-                          <td> 
-                            <a href="<?php echo base_url('admin/user/edit/').$row['id']; ?>" class="label label-success"><i class="fa fa-fw fa-edit"></i></a>
-                            <a href="<?php echo base_url('admin/user/hapususer/').$row['id']; ?>" class="label label-danger"><i class="fa fa-fw fa-close"></i></a>
+                          <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                  Aksi <span class="caret"></span>
+                                  <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                  <li><a href="<?php echo base_url('admin/user/edit/').$row['id']; ?>">Ubah Data</a></li>
+                                  <li><a href="<?php echo base_url('admin/user/editpassword/').$row['id']; ?>">Ubah Password</a></li>
+                                  <li class="divider"></li>
+                                  <li><a href="<?php echo base_url('admin/user/hapus/').$row['id']; ?>">Hapus Data</a></li>
+                                </ul>
+                            </div>
                           </td>
                         </tr>
                     <?php endforeach; ?>
@@ -174,14 +184,6 @@
 <script>
   $(function () {
     $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
   })
 </script>
 </body>

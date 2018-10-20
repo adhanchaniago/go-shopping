@@ -37,13 +37,29 @@ class Admin_model extends CI_Model{
         return $res->result_array();
     }
 
-    public function laporanHarian($today)
+    public function cetakLaporanHarianPdf($today)
     {
-        $this->db->select('nama_produk, qty, alamat, tanggal, nama_pembeli, total_harga, status, id');
+        $this->db->select('nama_produk, qty, total_harga, tanggal, nama_pembeli');
         $this->db->from('transaksi');
         $this->db->where('tanggal', $today);
         $res = $this->db->get();
         return $res->result_array();
+    }
+
+    public function cetakLaporanHarian($today)
+    {
+        $this->db->select('nama_produk, qty, total_harga, tanggal, nama_pembeli');
+        $this->db->from('transaksi');
+        $this->db->where('tanggal', $today);
+        $res = $this->db->get();
+        return $res->result();
+    }
+
+    public function user()
+    {
+        $this->db->from('user');
+        $res = $this->db->get();
+        return $res->result();
     }
 
     public function tes()

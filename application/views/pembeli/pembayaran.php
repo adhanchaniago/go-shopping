@@ -95,6 +95,7 @@
                     <div class="card-body">
                         <ul class="list-group">
                             <?php
+                            $total = 0;
                             $list2 = $this->db->get_where('keranjang', array('user' => $session));
                             $data_list2 = $list2->result_array();
                             foreach($data_list2 as $row2) {
@@ -103,9 +104,9 @@
                                 <?php echo $row2['nama_produk']; ?> <span>Rp. <?php echo number_format($row2['total_harga'],2,".","."); ?></span>
                                 <span class="badge badge-primary badge-pill"><?php echo $row2['qty']; ?></span>
                             </li>
-                            <?php } ?>
+                            <?php $total += $row2['total_harga']; } ?>
                         </ul>
-                            <!-- <h4>Total Harga: <?php //echo $row['total_harga']; ?></h4> -->
+                            <h4>Total Pembayaran: Rp. <?php echo number_format($total,2,".","."); ?></h4>
                     </div>
                 </div>
             </div>

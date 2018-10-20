@@ -51,6 +51,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="<?php echo base_url('profil'); ?>">Profil</a>
+                        <a class="dropdown-item" href="<?php echo base_url('transfer'); ?>">Tagihan</a>
                         <a class="dropdown-item" href="<?php echo base_url('logout'); ?>">Logout</a>
                     </div>
                 </li>

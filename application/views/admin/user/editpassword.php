@@ -39,7 +39,7 @@
         <div class="col-md-12">
         <div class="box box-danger box-solid">
             <div class="box-header">
-                <h3 class="box-title">Edit User</h3> 
+                <h3 class="box-title">Edit Password</h3> 
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -56,33 +56,26 @@
               foreach($data as $edit):
               ?>
               <div class="col-md-12">
-                <?php echo form_open("admin/prosesedituser"); ?>
+                <?php echo form_open("admin/proseseditpassword"); ?>
                 <input type="text" name="id" value="<?php echo $edit['id']; ?>" hidden>
                   <div class="form-group">
-                    <label>Username</label>
+                    <label>Password Baru</label>
                     <?php
-                    $data = array('class' => 'form-control', 'name' => 'username', 'id' => 'username', 'placeholder' => 'Masukkan Username', 'value' => set_value('username', $edit['username']), 'oninvalid' => 'this.setCustomValidity('."'Username Tidak Boleh Kosong'".')', 'oninput' => 'setCustomValidity('."''".')', 'required' => 'true');
+                    $data = array('type' => 'password', 'class' => 'form-control', 'name' => 'password_baru', 'id' => 'password_baru', 'placeholder' => 'Masukkan Password', 'value' => set_value('password_baru'), 'oninvalid' => 'this.setCustomValidity('."'Password Tidak Boleh Kosong'".')', 'oninput' => 'setCustomValidity('."''".')', 'required' => 'true');
                     echo form_input($data);
-                    echo form_error('username', '<p class="text-red">', '</p>'); 
+                    echo form_error('password_baru', '<p class="text-red">', '</p>'); 
                     ?>
                   </div>
                   
                   <div class="form-group">
-                    <label>Email</label>
+                    <label>Konfirmasi Password</label>
                     <?php
-                    $data = array('type' => 'email', 'class' => 'form-control', 'name' => 'email', 'id' => 'email', 'placeholder' => 'Masukkan Email', 'value' => set_value('email', $edit['email']), 'oninvalid' => 'this.setCustomValidity('."'Email Tidak Boleh Kosong'".')', 'oninput' => 'setCustomValidity('."''".')', 'required' => 'true');
+                    $data = array('type' => 'password', 'class' => 'form-control', 'name' => 'konfirmasi_password_baru', 'id' => 'konfirmasi_password_baru', 'placeholder' => 'Masukkan Ulang Password', 'value' => set_value('konfirmasi_password_baru'), 'oninvalid' => 'this.setCustomValidity('."'Password Tidak Boleh Kosong'".')', 'oninput' => 'setCustomValidity('."''".')', 'required' => 'true');
                     echo form_input($data);
-                    echo form_error('email', '<p class="text-red">', '</p>'); 
+                    echo form_error('konfirmasi_password_baru', '<p class="text-red">', '</p>'); 
                     ?>
                   </div>
 
-                  <div class="form-group">
-                    <label>Level</label>
-                    <select name="level" class="form-control">
-                      <option value="Admin" <?php echo set_select('status', 'Admin', ($edit['level'] == 'Admin')); ?> >Admin</option>
-                      <option value="Pembeli" <?php echo set_select('status', 'Pembeli', ($edit['level'] == 'Pembeli')); ?> >Pembeli</option>
-                    </select>
-                  </div>
               </div>
               <?php endforeach; ?>
             </div>

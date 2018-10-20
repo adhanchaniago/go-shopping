@@ -5,7 +5,7 @@
       <span class="logo-lg"><b>Go</b>SHOP</span>
     </a>
 
-    <nav class="navbar navbar-static-top">
+    <nav class="navbar navbar-static-top bg-red">
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -21,7 +21,7 @@
           </li>
 
           <li class="dropdown user user-menu">
-            <a href="<?php echo base_url('admin/profil'); ?>">
+            <a href="<?php echo base_url('admin'); ?>">
               <span class="hidden-xs"><?php echo $this->session->userdata('username'); ?></span>
             </a>
           </li>

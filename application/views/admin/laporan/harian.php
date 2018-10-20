@@ -4,7 +4,7 @@
   <title><?php echo SITE_NAME .": ". ucfirst($this->uri->segment(1)) ." - ". ucfirst($this->uri->segment(2)) ?></title>
   <?php $this->load->view('admin/library/head'); ?>  
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
@@ -21,7 +21,7 @@
     <section class="content-header">
       <h1>
         <a href="<?php echo base_url('admin/penjualan'); ?>" class="btn btn-primary">Kembali</a>
-        <a href="<?php echo base_url('admin/penjualan'); ?>" class="btn btn-success">Export Excel</a>
+        <a href="<?php echo base_url('phpexcel/export'); ?>" class="btn btn-success">Export Excel</a>
         <a href="<?php echo base_url('admin/cetak'); ?>" class="btn btn-danger">Export PDF</a>
       </h1>
       <ol class="breadcrumb" style="padding: 0;">

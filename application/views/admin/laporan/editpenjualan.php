@@ -4,7 +4,7 @@
   <title><?php echo SITE_NAME .": ". ucfirst($this->uri->segment(1)) ." - ". ucfirst($this->uri->segment(2)) ?></title>
   <?php $this->load->view('admin/library/head'); ?>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
@@ -63,6 +63,7 @@
                     <label>Status Pemesanan</label>
                     <input type="text" name="id" value="<?php echo $id; ?>" hidden>
                     <select name="status" class="form-control" id="status">
+                        <option value="Pesanan Gagal" <?php echo set_select('status', 'Pesanan Gagal', ($status == 'Pesanan Gagal')); ?> >Pesanan Gagal</option>
                         <option value="Dalam Pemesanan" <?php echo set_select('status', 'Dalam Pemesanan', ($status == 'Dalam Pemesanan')); ?> >Dalam Pemesanan</option>
                         <option value="Dalam Pengiriman" <?php echo set_select('status', 'Dalam Pengiriman', ($status == 'Dalam Pengiriman')); ?> >Dalam Pengiriman</option>
                         <option value="Barang Diterima" <?php echo set_select('status', 'Barang Diterima', ($status == 'Barang Diterima')); ?> >Barang Diterima</option>
