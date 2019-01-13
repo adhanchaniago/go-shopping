@@ -9,9 +9,10 @@ $pdf->setFooterMargin(20);
 $pdf->SetAutoPageBreak(true);
 $pdf->SetAuthor('Author');
 $pdf->SetDisplayMode('real', 'default');
+$total = $pdf->getAliasNumPage();
 $pdf->AddPage('P');
 $i=0;
-$html='<h3>Penjualan Harian per '.$today.'</h3>
+$html='<h3>Penjualan Harian per '.$today . $total.'</h3>
         <table cellspacing="1" bgcolor="#666666" cellpadding="1">
             <tr bgcolor="#ffffff">
                 <th width="5%" align="center">No</th>

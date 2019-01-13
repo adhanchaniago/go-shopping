@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 20, 2018 at 08:17 PM
+-- Generation Time: Jan 13, 2019 at 12:48 PM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.2.9
 
@@ -7970,7 +7970,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `email`, `password`, `level`) VALUES
 (7, 'pembeli', 'pembeli@gmail.com', 'a9f8bbb8cb84375f241ce3b9da6219a1', 'Pembeli'),
-(8, 'admin', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 'Admin');
+(8, 'admin', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 'Admin'),
+(9, 'hai123', 'hai@gmail.com', '70a0f9894d2df18c2507d231a94caee8', 'Pembeli');
 
 -- --------------------------------------------------------
 
@@ -83124,7 +83125,7 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `produk`
@@ -83142,7 +83143,7 @@ ALTER TABLE `transaksi`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
